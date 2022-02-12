@@ -6,6 +6,7 @@ import Publish from "./views/Publish.vue";
 import Published from "./views/Published.vue";
 import Posted from "./views/Posted.vue";
 import Warning from "./views/Warning.vue";
+import NotFound from "./views/NotFound.vue";
 
 const routes = [
   {
@@ -42,6 +43,10 @@ const routes = [
     path: "/warning",
     name: "Warning",
     component: Warning,
+  },
+  {
+    path: "/:catchAll(.*)",
+    component: NotFound,
   }
 ];
 
