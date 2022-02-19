@@ -3,6 +3,17 @@
     <span>Désolé, il semble que la page demandée n'existe pas. Veuillez vérifier !</span>
 </template>
 
+<script>
+import { defineComponent } from '@vue/composition-api'
+
+export default defineComponent({
+    setup() {
+        
+    },
+})
+</script>
+
+
 <style scoped>
     img {
         margin-top: 60px;
