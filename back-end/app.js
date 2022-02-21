@@ -2,9 +2,9 @@ const express = require('express');
 const app = express();
 const helmet = require('helmet');
 const sequelize = require('./utils/database');
-const User = require('./models/user');
-const Comment = require('./models/comment');
-const GPost = require('./models/groupomania-post');
+const userRoutes = require('./routes/user');
+const commentRoutes = require('./routes/comment');
+const GPostRoutes = require('./routes/groupomania-post');
 //les 3 const du haut st à charger dans les controllers
 require('dotenv').config();
 
@@ -16,13 +16,20 @@ app.use((req, res, next) => {
 });
 
 sequelize.sync({force: true});
+//synchronise la BDD avec sequelize en créant les tables (supprime les tables si elles existent
+//déjà et les remplace par les nouvelles)
+
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+app.use(helmet());
 
 //const routes = require(.../routes/...);
 //app.use(/api/..., routes);
-app.use('/api/user', );
-app.use('/api/post')
+app.use('/api/auth', authRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/post', GPostRoutes);
+app.use('/api/comment', commentRoutes);
+
 //et enregistré sur github !!
 
 module.exports = app;

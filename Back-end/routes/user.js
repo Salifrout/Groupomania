@@ -1,3 +1,15 @@
 const express = require('express');
 const router = express.Router();
+const userCtrl = require('../controllers/user');
+const password = require('../middleware/password');
+const email_ok = require('../middleware/email');
+const auth = require('../middleware/auth');
 
+router.post('/signup', email_ok, password, userCtrl.signup);
+router.post('/login', userCtrl.login);
+router.get('/user/:user_id/access', auth, userCtrl.accessUserProfil);
+router.put('/user/:user_id/update', auth, userCtrl.updateUser);
+router.get('/user/logout', userCtrl.logout);
+router.get('/user/delete', auth, userCtrl.deleteAccount);
+
+module.exports = router;
