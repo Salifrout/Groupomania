@@ -1,5 +1,5 @@
 <template>
-
+<div>
 <header>
   <!--<div id="topBar">-->
     <div id="logoBar">
@@ -13,13 +13,15 @@
   <!--</div>-->
 </header>
 
+<!--
+
 <footer>
   <div id="botBar">
 
   </div>
-</footer>
+</footer>-->
 
-  <router-view/>
+  <router-view /></div>
 </template>
 
 <style lang="scss">

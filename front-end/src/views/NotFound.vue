@@ -1,16 +1,18 @@
 <template>
-    <img alt="Cette page n'existe pas" src="./assets/NotFound.png">
+    <div id="notfound">
+    <img alt="Cette page n'existe pas" src="../assets/NotFound.png">
     <span>Désolé, il semble que la page demandée n'existe pas. Veuillez vérifier !</span>
+    </div>
 </template>
 
 <script>
-import { defineComponent } from '@vue/composition-api'
+/*import { defineComponent } from '@vue/composition-api'
 
 export default defineComponent({
     setup() {
         
     },
-})
+})*/
 </script>
 
 
