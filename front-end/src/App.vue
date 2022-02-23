@@ -9,20 +9,45 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>-->
-    <div id="navBar"></div>
+    <div id="navBar_register">
+      <ul>
+        <li>
+          <router-link :to="{ name: 'Signup' }">S'inscrire</router-link>
+        </li>
+        <br />
+        <li>
+          <router-link :to="{ name: 'Login' }">Se connecter</router-link>
+        </li>
+      </ul>
+    </div>
+    <div id="navBar_navigate">
+
+    </div>
   <!--</div>-->
 </header>
 
-<!--
+<!--<Login/>-->
+<router-view />
 
 <footer>
-  <div id="botBar">
 
+</footer>
+ 
   </div>
-</footer>-->
-
-  <router-view /></div>
 </template>
+
+<script>
+import Signup from './views/Signup.vue'
+import Login from './views/Login.vue'
+
+export default {
+  name: 'App',
+  components: {
+    Signup,
+    Login
+  }
+}
+</script>
 
 <style lang="scss">
 /*#app {
@@ -47,13 +72,6 @@ header {
       padding: 40px 35%;
     }
   }  
-  #navBar {
-    background-color: #ffd7d7;
-    color: #fd2d01;
-    text-decoration: underline;
-    width: 30%;
-    height: 120px;
-  }
 }
 
 footer {
@@ -75,4 +93,8 @@ footer {
     }
   }
 }*/
+* {
+  list-style: none;
+}
+
 </style>

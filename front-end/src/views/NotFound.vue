@@ -1,7 +1,7 @@
 <template>
-    <div id="notfound">
+    <div>
     <img alt="Cette page n'existe pas" src="../assets/NotFound.png">
-    <span>Désolé, il semble que la page demandée n'existe pas. Veuillez vérifier !</span>
+    <p>Désolé, il semble que la page demandée n'existe pas. Veuillez vérifier !</p>
     </div>
 </template>
 
@@ -18,16 +18,15 @@ export default defineComponent({
 
 <style scoped>
     img {
-        margin-top: 60px;
+        display: block;
         margin-left: auto;
         margin-right: auto;
-        margin-bottom: 40px;
-        width: 80%;
+        width: 50%;
     }
-    span {
+    p {
+        margin: auto;
         font-size: 80%;
-        margin-left: auto;
-        margin-right: auto;
+        width: 20%;
         font-weight: bold;
     }
 </style>

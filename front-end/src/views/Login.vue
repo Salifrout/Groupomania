@@ -8,15 +8,37 @@
         <input type="password" id="password">
         <button></button>
     </form>
+    <!--<router-view />-->
   </div>
 </template>
 
 <script>
-export default {
+/*import Signup from './Signup.vue'
 
-}
+export default {
+ name: Login,
+ components: Signup
+}*/
 </script>
 
-<style>
-
+<style lang="scss">
+#navBar_ {
+  &register {
+    background-color: #ffd7d7;
+    width: 30%;
+    height: 120px;
+    ul {
+      padding: 10px;
+      a {
+        text-decoration: none;
+        color: #fff;
+        font-weight: 900;
+        font-size: large;
+        }
+      }
+    }
+  &navigate {
+    display: none;
+  }
+}
 </style>
