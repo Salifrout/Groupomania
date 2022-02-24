@@ -61,15 +61,15 @@ exports.accessUserProfile = (req,res) => {
       .catch(error => res.status(401).json({ error }));
 };
 
-exports.updateUser = (req, res) => {
+/*exports.updateUser = (req, res) => {
   const newUser = { ...req.body };
     User.updateOne({ user_id: req.params.id }, { ...newUser, user_id: req.params.id })
       .then(() => res.status(200).json({ message: 'Profil correctement modifié !'}))
       .catch(error => res.status(400).json({ error }));
-}
+};*/
 
 exports.deleteAccount = (req, res) => {
-    
+
 };
 
 //delete : supprimer compte et ses posts et ses comments + clear cookie + retour page de login

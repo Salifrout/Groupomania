@@ -17,7 +17,7 @@
             <input type="radio" name="admin" value=true id="admin_true"> 
             <label for="admin" class="intro_label">Oui</label>
         </p><br /><br />
-        <input type="submit" value="Je crée mon compte" id="submit">
+        <input type="submit" value="Je crée mon compte" class="submit">
     </form>
   </div>
 </template>
@@ -35,14 +35,14 @@ export default {
 }*/
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 #signup {
   margin: auto;
   padding: 8%;
   border: 4mm ridge #fd2d01;
   box-shadow: 8px 3px black, -1em 0 .4em pink;
   width: 50%;
-  #submit {
+  .submit {
     background-color: black;
     border-color: pink;
     color: pink;

@@ -8,7 +8,7 @@ const auth = require('../middleware/auth');
 router.post('/signup', email_ok, password, userCtrl.signup);
 router.post('/login', userCtrl.login);
 router.get('/user/:user_id/access', auth, userCtrl.accessUserProfile);
-router.put('/user/:user_id/update', auth, userCtrl.updateUser);
+/* router.put('/user/:user_id/update', auth, userCtrl.updateUser); //ne peux pas changer mdp et email */
 router.get('/user/logout', userCtrl.logout);
 router.get('/user/delete', auth, userCtrl.deleteAccount);
 

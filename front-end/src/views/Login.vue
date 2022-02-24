@@ -6,7 +6,7 @@
         <input type="email" id="e-mail" class="intro_input" autofocus required><br />
         <label for="pass-wword" class="intro_label">Veuillez renseigner votre mot de passe:</label><br />
         <input type="password" id="pass-word" class="intro_input" required><br /><br />
-        <input type="submit" value="Je me connecte" id="submit2">
+        <input type="submit" value="Je me connecte" class="submit">
     </form>
   </div>
 </template>
@@ -20,7 +20,7 @@ export default {
 }*/
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 #navBar_ {
   &register {
     background-color: #ffd7d7;
@@ -47,7 +47,7 @@ export default {
   border: 4mm ridge #fd2d01;
   box-shadow: 8px 3px black, -1em 0 .4em pink;
   width: 50%;
-  #submit2 {
+  .submit {
     background-color: black;
     border-color: pink;
     color: pink;

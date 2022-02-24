@@ -31,5 +31,5 @@ exports.createComment = (req, res) => {
 ;
 
 exports.deleteComment = (req, res) => {
-
+    //action prévue uniquement pour les admin
 };

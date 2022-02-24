@@ -6,18 +6,35 @@
     </div>
     
     <div id="navBar_register">
-      <ul>
-        <li>
-          <router-link :to="{ name: 'Signup' }">S'inscrire</router-link>
-        </li>
-        <br />
-        <li>
-          <router-link :to="{ name: 'Login' }">Se connecter</router-link>
-        </li>
-      </ul>
+      <!--<nav>-->
+        <ul>
+          <li>
+            <router-link :to="{ name: 'Signup' }">S'inscrire</router-link>
+          </li>
+          <br />
+          <li>
+            <router-link :to="{ name: 'Login' }">Se connecter</router-link>
+          </li>
+        </ul>
+      <!--</nav>-->
     </div>
 
     <div id="navBar_navigate">
+      <!--<nav>-->
+        <ul>
+          <li>
+            <router-link :to="{ name: 'Profile' }">Mon profil</router-link>
+          </li>
+          <br />
+          <li>
+            <router-link :to="{ name: 'Published' }">Forum</router-link>
+          </li>
+          <br />
+          <li>
+            <router-link :to="{ name: 'Posted' }">Publier</router-link>
+          </li>
+        </ul>
+      <!--</nav>-->
     </div>
   </header>
 

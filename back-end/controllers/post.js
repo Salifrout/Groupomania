@@ -61,5 +61,5 @@ exports.modifyPost = (req, res) => {
 if user_admin = true pour  delete les commentaires */ //modify et delete !
 
 exports.deletePost = (req, res) => {
-
+    //supprimer le post et ses commentaires dont related_postId = Gpost_Id
 };
