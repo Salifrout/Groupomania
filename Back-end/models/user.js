@@ -22,11 +22,11 @@ const User = sequelize.define('user', {
     },
     user_firstname: {
         required: true,
-        type: Sequelize.STRING(40)
+        type: Sequelize.STRING
     },
     user_lastname: {
         required: true,
-        type: Sequelize.STRING(40),
+        type: Sequelize.STRING
     },
     user_admin: {
         type: Sequelize.BOOLEAN,

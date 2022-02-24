@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+require('dotenv').config();
 
 const sequelize = new Sequelize(
     'process.env.DB_NAME',
@@ -15,6 +16,7 @@ const sequelize = new Sequelize(
     }
 );
 
+/*
 const db = {};
 db.Sequelize = Sequelize;
 db.user = require('../models/user')(sequelize, Sequelize);
@@ -22,6 +24,9 @@ db.comment = require('../models/comment')(sequelize, Sequelize);
 db.Gpost = require('../models/groupomania-post')(sequelize, Sequelize);
 
 module.exports = db;
+*/
+
+module.exports = sequelize;
 
 //comme on peut le voir dans le fichier utils/.env, DB_USER correspond à l'utilisateur root. Dans un projet réel, il faudrait
 //utiliser un autre utilisateur disposant uniquement provilèges accordant les fonctionnalités nécessaires pour faire fonctionner

@@ -1,14 +1,10 @@
 <template>
 <div>
-<header>
-  <!--<div id="topBar">-->
+  <header>
     <div id="logoBar">
       <h1 id="groupomania">Groupomania</h1>
     </div>
-    <!--<div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>-->
+    
     <div id="navBar_register">
       <ul>
         <li>
@@ -20,24 +16,21 @@
         </li>
       </ul>
     </div>
+
     <div id="navBar_navigate">
-
     </div>
-  <!--</div>-->
-</header>
+  </header>
 
-<!--<Login/>-->
-<router-view />
+  <router-view />
 
-<footer>
-
-</footer>
+  <footer>
+  </footer>
  
-  </div>
+</div>
 </template>
 
 <script>
-import Signup from './views/Signup.vue'
+/*import Signup from './views/Signup.vue'
 import Login from './views/Login.vue'
 
 export default {
@@ -46,7 +39,7 @@ export default {
     Signup,
     Login
   }
-}
+}*/
 </script>
 
 <style lang="scss">
@@ -72,6 +65,17 @@ header {
       padding: 40px 35%;
     }
   }  
+}
+
+.intro {
+  text-align: justify;
+  &_label {
+    color: #fd2d01;
+    font-weight: bold;
+  }
+  &_input {
+    margin-bottom: 16px;
+  }
 }
 
 footer {

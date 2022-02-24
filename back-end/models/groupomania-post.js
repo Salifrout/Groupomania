@@ -10,20 +10,23 @@ const GroupomaniaPost = sequelize.define('Gpost', {
         unique: true
     },
     Gpost_title: {
-        type: Sequelize.STRING(25),
+        type: Sequelize.STRING,
         required: true
     },
     Gpost_text: {
         type:Sequelize.TEXT,
         required: true
     },
+    Gpost_media: {
+        type: Sequelize.STRING
+    },
     Gpost_firstNameAuthor: {
         required: true,
-        type: Sequelize.STRING(40)
+        type: Sequelize.STRING
     },
     Gpost_lastNameAuthor: {
         required: true,
-        type: Sequelize.STRING(40)
+        type: Sequelize.STRING
     },
     Gpost_date: {
         type: Sequelize.DATE,

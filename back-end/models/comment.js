@@ -14,16 +14,12 @@ const Comment = sequelize.define('comment', {
         required: true
     },
     comment_firstname: {
-        type: Sequelize.STRING(40),
+        type: Sequelize.STRING,
         required: true
     },
     comment_lastname: {
         required: true,
-        type: Sequelize.STRING(40)
-    },
-    comment_username: {
-        required: true,
-        type: Sequelize.STRING(18)
+        type: Sequelize.STRING
     },
     related_postId: {
         type: Sequelize.INTEGER,
