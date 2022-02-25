@@ -6,7 +6,7 @@ const fs = require('fs');
 const sequelize = require('./utils/database');
 const userRoutes = require('./routes/user');
 const commentRoutes = require('./routes/comment');
-const GPostRoutes = require('./routes/groupomania-post');
+const GPostRoutes = require('./routes/post');
 //les 3 const du haut st à charger dans les controllers
 require('dotenv').config();
 
