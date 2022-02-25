@@ -1,18 +1,18 @@
 <template>
-<div id="postForum">
-    <div id="postTitle">
-        <div id="postTibleBox">
-            <label for="postTitle_input" id="postTitle_label">Titre</label>
+<div id="publishForum">
+    <div id="publishTitle">
+        <div id="publishTibleBox">
+            <label for="publishTitle_input" id="publishTitle_label">Titre</label>
         </div>
-        <input type="text" size="30" max-length="30" id="postTitle_input" placeholder=" Veuillez prévoir un titre pour votre poste..." required autofocus>
+        <input type="text" size="30" max-length="30" id="publishTitle_input" placeholder=" Veuillez prévoir un titre pour votre poste..." required autofocus>
     </div>
 
-    <div id="postMedia">
+    <div id="publishMedia">
         <input type="file">
     </div>
 
-    <div id="postText">
-        <textarea id="postTextArea" required>Hey, coucou à tous les visiteurs du forum !</textarea>
+    <div id="publishText">
+        <textarea id="publishTextArea" required>Hey, coucou à tous les visiteurs du forum !</textarea>
     </div>
 
     <div id="chooseAct">
@@ -31,7 +31,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-#post {
+#publish {
     &Forum {
     margin: auto;
     padding: 12px;
