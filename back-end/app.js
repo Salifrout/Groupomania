@@ -23,10 +23,12 @@ try {
     sequelize.authenticate();
     console.log('Connecté à la base de données MySQL !');
     sequelize.sync({force: true});
+    console.log('connecté 1');
     //synchronise la BDD avec sequelize en créant les tables (supprime les tables si elles existent
     //déjà et les remplace par les nouvelles)
     if (sequelize.query('CREATE DATABASE if not exists ' + process.env.DB_NAME)) {
         sequelize.query('USE ' + process.env.DB_NAME);
+        console.log('connecté 2');
     }
 } catch (error) {
     console.error('Impossible de se connecter, erreur suivante:', error);

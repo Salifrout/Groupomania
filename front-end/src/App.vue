@@ -75,11 +75,12 @@ header {
     background-color: #fd2d01;
     height: 120px;
     width: 70%;
-    & h1 {
+    h1 {
       color: #ffd7d7;
       font-weight: 900;
       margin: auto;
       padding: 40px 35%;
+      width: 50%;
     }
   }  
 }

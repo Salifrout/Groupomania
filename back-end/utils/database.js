@@ -25,7 +25,7 @@ db.Gpost = require('../models/groupomania-post')(sequelize, Sequelize);
 
 module.exports = db;
 */
-
+console.log('database.js active !')
 module.exports = sequelize;
 
 //comme on peut le voir dans le fichier utils/.env, DB_USER correspond à l'utilisateur root. Dans un projet réel, il faudrait

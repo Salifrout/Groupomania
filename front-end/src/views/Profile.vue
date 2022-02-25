@@ -61,6 +61,7 @@ export default {
         box-shadow: 4px 2px orange;  
         img {
             display: block;
+            width: 100%;
         }
     }
     &Bar {

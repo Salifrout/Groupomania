@@ -2,7 +2,7 @@
 <div id="publishForum">
     <div id="publishTitle">
         <div id="publishTibleBox">
-            <label for="publishTitle_input" id="publishTitle_label">Titre</label>
+            <label for="publishTitle_label" id="publishTitle_label">Titre</label>
         </div>
         <input type="text" size="30" max-length="30" id="publishTitle_input" placeholder=" Veuillez prévoir un titre pour votre poste..." required autofocus>
     </div>
@@ -51,6 +51,9 @@ export default {
         &_label {
             font-weight: 900;
         }
+        &_input {
+            width: 90%;
+        }
     }
     &Text {
         margin-top: 15px;
@@ -60,6 +63,9 @@ export default {
             height: 120px;
             border: 2px solid purple;
         }
+    }
+    &Media {
+        width: 100%;
     }
 }
 
@@ -86,13 +92,3 @@ export default {
     }
 }
 </style>
-
-
-
-enregistrer
-abandonner et revenir au forum
-titre
-texte
-media
-prénom
-nom
