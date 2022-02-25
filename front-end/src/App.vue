@@ -31,7 +31,7 @@
           </li>
           <br />
           <li>
-            <router-link :to="{ name: 'Posted' }">Publier</router-link>
+            <router-link :to="{ name: 'Publish' }">Publier</router-link>
           </li>
         </ul>
       <!--</nav>-->
