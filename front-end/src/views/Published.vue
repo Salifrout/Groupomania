@@ -1,30 +1,30 @@
 <template>
-  <div id="postForum">
-    <div id="postTitle">
-        <h2 id="postTitle_h2">
+  <div class="postForum">
+    <div class="postTitle">
+        <h2 class="postTitle_h2">
             TITRE
         </h2>
     </div>
 
-    <div id="postMedia">
+    <div class="postMedia">
         <img src="http://www.snut.fr/wp-content/uploads/2015/12/image-de-nature-9.jpg" alt="">
     </div>
 
-    <div id="postText">
-        <p id="postTextBlock">
+    <div class="postText">
+        <p class="postTextBlock">
             UN LONG TEXTE
         </p>
     </div>
 
-    <div id="postInfos">
-        <div id="postAuthor">
-            <p id="postInfosAuthor">Publié par:     
-                <span id="postInfosFirstname">PRENOM</span>
-                <span id="postInfosLastname">PATRONYME</span>
+    <div class="postInfos">
+        <div class="postAuthor">
+            <p class="postInfosAuthor">Publié par:     
+                <span class="postInfosFirstname">PRENOM</span>
+                <span class="postInfosLastname">PATRONYME</span>
             </p>
         </div>
-        <p id="postDate">Enregistré le: 
-            <span id="postInfosDate">DATE</span>
+        <p class="postDate">Enregistré le: 
+            <span class="postInfosDate">DATE</span>
         </p>
     </div>
 
@@ -39,7 +39,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-#post {
+.post {
     &Forum {
     margin: auto;
     padding: 12px;
