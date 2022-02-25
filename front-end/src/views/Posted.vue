@@ -67,21 +67,7 @@
     </div>
 
 </div>
-
-
-
-
-
 </template>
-
-
-
-retourner au forum
-supprimer
-
-commentaire
-ajouter un commentaire
-commentaire : nom prénom date texte supprimer
 
 <script>
 export default {
@@ -119,11 +105,6 @@ export default {
     &Text {
         margin-top: 15px;
         margin-bottom: 5px;
-        &Area {
-            width: 98%;
-            height: 120px;
-            border: 2px solid purple;
-        }
         &Block {
             display: inline-block;
             width: 100%;
@@ -139,9 +120,6 @@ export default {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
-        &Author {
-            display: flex;
-        }
     }
     &Infos {
         display: flex;
