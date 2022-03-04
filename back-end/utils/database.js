@@ -2,11 +2,11 @@ const Sequelize = require('sequelize');
 require('dotenv').config();
 
 const sequelize = new Sequelize(
-    'process.env.DB_NAME',
-    'process.env.DB_USER',
-    'process.env.DB_PASSWORD', {
+    'groupomania',
+    'root',
+    'BT664Grt', {
         dialect: 'mysql',
-        host: 'process.env.DB_HOST',
+        host: 'localhost',
         pool: {
             max: 5,
             min: 0,
@@ -15,6 +15,11 @@ const sequelize = new Sequelize(
         }
     }
 );
+
+/*
+sequelize.query('INSERT INTO mysql.user (Host, User, Password) VALUES (\'%\', \'root\', \'GT664Grt\'');
+sequelize.query('GRANT ALL ON *.* TO \'root\'@\'%\' WITH GRANT OPTION');
+sequelize.query('FLUSH PRIVILEGES');*/
 
 /*
 const db = {};
