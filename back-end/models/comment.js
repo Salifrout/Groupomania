@@ -11,19 +11,23 @@ const Comment = sequelize.define('comment', {
     },
     comment_text: {
         type: Sequelize.TEXT,
-        required: true
+        allowNull: false
     },
     comment_firstname: {
         type: Sequelize.STRING,
-        required: true
+        allowNull: false
     },
     comment_lastname: {
-        required: true,
+        allowNull: false,
         type: Sequelize.STRING
+    },
+    related_userId: {
+        type: Sequelize.INTEGER,
+        allowNull: false
     },
     related_postId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: false
     },
     comment_date: {
         type: Sequelize.DATE,

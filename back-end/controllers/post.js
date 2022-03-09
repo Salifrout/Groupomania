@@ -12,6 +12,7 @@ exports.getAllPosts = (req, res) => {
         }
         res.status(200).json(result);
     });
+    //rajouter les commentaires qui vont avec depuis le fichier comment
 };
 
 exports.getOnePost = (req, res, next) => {
@@ -46,7 +47,7 @@ exports.createPost = (req, res) => {
 
 //create post : le related_postID = Gpost_id !
 
-exports.modifyPost = (req, res) => {
+/*exports.modifyPost = (req, res) => {
     const GroupomaniaPost = req.file ?
       {
         ...JSON.parse(req.body), //req.body.sauce
@@ -55,11 +56,11 @@ exports.modifyPost = (req, res) => {
       Gpost.updateOne({ Gpost_id: req.params.id }, { ...GroupomaniaPost, Gpost_id: req.params.id })
         .then(() => res.status(200).json({ message: 'Post correctement modifié !'}))
         .catch(error => res.status(400).json({ error }));
-};
+};*/
 
 /*
 if user_admin = true pour  delete les commentaires */ //modify et delete !
 
-exports.deletePost = (req, res) => {
-    //supprimer le post et ses commentaires dont related_postId = Gpost_Id
-};
+/*exports.deletePost = (req, res) => {
+    //supprimer le post et son image et ses commentaires dont related_postId = Gpost_Id
+};*/

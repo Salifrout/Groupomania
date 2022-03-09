@@ -12,20 +12,20 @@ const User = sequelize.define('user', {
     },
     user_email: {
         type: Sequelize.STRING,
-        required: true,
+        allowNull: false,
         validate: {isEmail: true, is: correctEmail},
         unique: true
     },
     user_password: {
         type: Sequelize.STRING,
-        required: true
+        allowNull: false
     },
     user_firstname: {
-        required: true,
+        allowNull: false,
         type: Sequelize.STRING
     },
     user_lastname: {
-        required: true,
+        allowNull: false,
         type: Sequelize.STRING
     },
     user_admin: {

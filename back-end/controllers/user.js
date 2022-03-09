@@ -5,49 +5,50 @@ const User = require('../models/user');
 require('dotenv').config();
 
 exports.signup = (req, res) => {
-    const emailCryptoJs = cryptojs.HmacSHA256(req.body.user_email, process.env.EMAIL_PROTECTED).toString();
-    bcrypt.hash(req.body.user_password, 10)
-        .then(hash => {
-            const user = new User ({
-                user_email: emailCryptoJs,
-                user_password: hash,
-                user_firstname: req.body.user_firstname,
-                user_lastname: req.body.user_lastname,
-                user_admin: req.body.user_admin
-            });
-            user.save()
-                .then(() => res.status(201).json({ message: 'Un nouvel utilisateur a été enregistré !' }))
-                .catch(error => res.status(400).json({ error }));
+  const emailCryptoJs = cryptojs.HmacSHA256(req.body.user_email, process.env.EMAIL_PROTECTED).toString();
+  bcrypt.hash(req.body.user_password, 10)
+    .then(hash => {
+      const user = new User ({
+        user_email: emailCryptoJs,
+        user_password: hash,
+        user_firstname: req.body.user_firstname,
+        user_lastname: req.body.user_lastname,
+        user_admin: req.body.user_admin
+        });
+        user.save()
+          .then(() => res.status(201).json({ message: 'Un nouvel utilisateur a été enregistré !' }))
+          .catch(error => res.status(400).json({ error }));
         })
-        .catch(error => res.status(500).json({ error }));
-};
+    .catch(error => res.status(500).json({ error }));
+  }
+;
 
 
 exports.login = (req, res) => {
-    const emailCryptoJs = cryptojs.HmacSHA256(req.body.email, process.env.EMAIL_PROTECTED).toString();
-      User.findOne({ email: emailCryptoJs })
-        .then(user => {
-          if (!user) {
-            return res.status(401).json({ error });
-          }
-          bcrypt.compare(req.body.user_password, user.user_password)
-            .then(valid => {
-              if (!valid) {
-                return res.status(401).json({ error });
-              }
-              res.status(200).json({
-                userId: User.user_id,
-                token: jwt.sign(
-                  { userId: User.user_id },
-                  process.env.SECRET_KEY,
-                  { expiresIn: '8h' }
-                )
-              });
-            })
-            .catch(error => res.status(500).json({ error }));
+  const emailCryptoJs = cryptojs.HmacSHA256(req.body.user_email, process.env.EMAIL_PROTECTED).toString();
+    User.findOne({ user_email: emailCryptoJs })
+      .then(user => {
+        if (!user) {
+          return res.status(401).json({ error });
+        }
+        bcrypt.compare(req.body.user_password, user.user_password)
+          .then(valid => {
+            if (!valid) {
+              return res.status(403).json({ error });
+            }
+            res.status(204).json({
+              userId: User.user_id,
+              token: jwt.sign(
+                { userId: User.user_id },
+                process.env.SECRET_KEY,
+                { expiresIn: '24h' }
+              )
+            });
           })
-        .catch(error => res.status(500).json({ error }));
-    }
+          .catch(error => res.status(500).json({ error }));
+        })
+      .catch(error => res.status(511).json({ error }));
+  }
 ;
 
 exports.logout = (req, res) => {
@@ -57,8 +58,8 @@ exports.logout = (req, res) => {
 
 exports.accessUserProfile = (req,res) => {
   User.findOne({ user_id: req.params.id })
-      .then(user => res.status(200).json(user))
-      .catch(error => res.status(401).json({ error }));
+    .then(user => res.status(200).json(user))
+    .catch(error => res.status(401).json({ error }));
 };
 
 /*exports.updateUser = (req, res) => {
@@ -69,7 +70,16 @@ exports.accessUserProfile = (req,res) => {
 };*/
 
 exports.deleteAccount = (req, res) => {
-
+  User.findOne({ user_id: req.params.id })
+  try {
+    User.deleteOne({ user_id: req.params.id })
+      .then(() => res.status(200).json({ message: 'Utilisateur supprimé !'}))
+      .then(res.clearCookie('jwt'))
+      .then(res.status(200).json('Déconnecté !'))
+      .catch(error => res.status(400).json({ error }));
+  } catch {
+    res.status(500).json('Une erreur est survenue et empêche la suppression du compte.');
+  }
 };
 
 //delete : supprimer compte et ses posts et ses comments + clear cookie + retour page de login

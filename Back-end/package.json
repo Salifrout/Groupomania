@@ -1,12 +1,12 @@
 {
   "name": "back-end",
   "version": "1.0.0",
-  "description": "",
+  "description": "La partie back-end du réseau social interne groupomania.",
   "main": "server.js",
   "scripts": {
     "start": "nodemon server"
   },
-  "author": "",
+  "author": "A Openclassromms student",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
@@ -18,8 +18,10 @@
     "jsonwebtoken": "^8.5.1",
     "multer": "^1.4.4",
     "mysql2": "^2.3.3",
-    "nodemon": "^2.0.15",
     "password-validator": "^5.2.1",
     "sequelize": "^6.17.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
