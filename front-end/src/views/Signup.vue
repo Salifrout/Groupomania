@@ -51,10 +51,11 @@ export default {
 }
 
 #navBar_ {
-  &register {
-    background-color: #ffd7d7;
+  background-color: #ffd7d7;
     width: 30%;
     height: 120px;
+  &register {
+    
     ul {
       padding: 10px;
       a {

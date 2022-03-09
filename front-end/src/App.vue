@@ -6,7 +6,7 @@
     </div>
     
     <div id="navBar_register">
-      <!--<nav>-->
+      <nav>
         <ul>
           <li>
             <router-link :to="{ name: 'Signup' }">S'inscrire</router-link>
@@ -16,11 +16,11 @@
             <router-link :to="{ name: 'Login' }">Se connecter</router-link>
           </li>
         </ul>
-      <!--</nav>-->
+      </nav>
     </div>
 
     <div id="navBar_navigate">
-      <!--<nav>-->
+      <nav>
         <ul>
           <li>
             <router-link :to="{ name: 'Profile' }">Mon profil</router-link>
@@ -34,7 +34,7 @@
             <router-link :to="{ name: 'Publish' }">Publier</router-link>
           </li>
         </ul>
-      <!--</nav>-->
+      </nav>
     </div>
   </header>
 
@@ -79,8 +79,8 @@ header {
       color: #ffd7d7;
       font-weight: 900;
       margin: auto;
-      padding: 40px 35%;
-      width: 50%;
+      text-align: center;
+      margin-top: 35px;
     }
   }  
 }
