@@ -24,7 +24,7 @@ try {
             console.log('Connecté à la base de données MySQL !');
         })
         .then(() => {
-            sequelize.sync({force: true});
+            sequelize.sync(/*{force: true}*/);
             console.log('Synchronisation effectuée !');
             //synchronise la BDD avec sequelize en créant les tables (supprime les tables si elles existent
             //déjà et les remplace par les nouvelles)

@@ -5,27 +5,35 @@ const User = require('../models/user');
 require('dotenv').config();
 
 exports.signup = (req, res) => {
-  const emailCryptoJs = cryptojs.HmacSHA256(req.body.user_email, process.env.EMAIL_PROTECTED).toString();
-  bcrypt.hash(req.body.user_password, 10)
-    .then(hash => {
-      const user = new User ({
-        user_email: emailCryptoJs,
-        user_password: hash,
-        user_firstname: req.body.user_firstname,
-        user_lastname: req.body.user_lastname,
-        user_admin: req.body.user_admin
-        });
-        user.save()
-          .then(() => res.status(201).json({ message: 'Un nouvel utilisateur a été enregistré !' }))
-          .catch(error => res.status(400).json({ error }));
+  try {
+    const correctEmail = new RegExp(/[a-z|1-9]{2,}[@][a-z]{2,}[\.][a-z]{2,3}/);
+    const correctPassword = new RegExp(/.{12,30}/);
+    if (correctEmail.test(req.body.user_email) && correctPassword.test(req.body.user_password)) {
+      const emailCryptoJs = cryptojs.HmacSHA256(req.body.user_email, 'U69vk2t3{jkjmEU]52?j?a.@932)5cP2T>26Rh)8R2#!4Ei6K4dM=!9ABx$]qEcdTTg9$24hVd6WH/-4}L=D?TsnVNt!tK?$:4Wn').toString();
+      bcrypt.hash(req.body.user_password, 10)
+        .then(hash => {
+          const user = new User ({
+          user_email: emailCryptoJs,
+          user_password: hash,
+          user_firstname: req.body.user_firstname,
+          user_lastname: req.body.user_lastname,
+          user_admin: req.body.user_admin
+          });
+          user.save()
+            .then(() => res.status(201).json({ message: 'Un nouvel utilisateur a été enregistré !' }))
+            .catch(error => res.status(400).json({ error }));
         })
-    .catch(error => res.status(500).json({ error }));
+        .catch(error => res.status(500).json({ error }));
+    } else {
+      res.status(401).json( 'L\'email ou le mot de passe ne correspondent pas à des données attendues.' )
+    }
+  } catch {
+      res.status(401).json( 'Une erreur est survenu et empêche la création d\'un nouvel uilisateur.')
   }
-;
-
+};
 
 exports.login = (req, res) => {
-  const emailCryptoJs = cryptojs.HmacSHA256(req.body.user_email, process.env.EMAIL_PROTECTED).toString();
+  const emailCryptoJs = cryptojs.HmacSHA256(req.body.user_email, 'U69vk2t3{jkjmEU]52?j?a.@932)5cP2T>26Rh)8R2#!4Ei6K4dM=!9ABx$]qEcdTTg9$24hVd6WH/-4}L=D?TsnVNt!tK?$:4Wn').toString();
     User.findOne({ user_email: emailCryptoJs })
       .then(user => {
         if (!user) {
@@ -82,4 +90,4 @@ exports.deleteAccount = (req, res) => {
   }
 };
 
-//delete : supprimer compte et ses posts et ses comments + clear cookie + retour page de login
+/*delete : supprimer compte et ses posts et ses comments + clear cookie + retour page de login*/
