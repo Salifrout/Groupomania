@@ -34,7 +34,7 @@ exports.signup = (req, res) => {
 
 exports.login = (req, res) => {
   const emailCryptoJs = cryptojs.HmacSHA256(req.body.user_email, process.env.EMAIL_PROTECTED).toString();
-    User.findOne({ user_email: emailCryptoJs })
+    User.findOne({/* user_email: emailCryptoJs */ where: {user_email: emailCryptoJs}, raw: true})
       .then(user => {
         if (!user) {
           return res.status(401).json({ error });
@@ -55,7 +55,7 @@ exports.login = (req, res) => {
           })
           .catch(error => res.status(500).json({ error }));
         })
-      .catch(error => res.status(511).json({ error }));
+      .catch(error => res.status(500).json({ error }));
   }
 ;
 

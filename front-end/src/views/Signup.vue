@@ -45,7 +45,7 @@ export default {
       password: '',
       firstname: '',
       lastname: '',
-      admin : false,
+      admin : false
     }
   },
   methods: {

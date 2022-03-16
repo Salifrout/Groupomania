@@ -23,7 +23,7 @@ exports.getOnePost = (req, res, next) => {
 };
 
 exports.createPost = (req, res) => {
-    User.findOne({ user_id: req.params.user_id })
+    User.findOne({ where: {user_id: req.params.user_id}, raw: true })
         .then(() => {
             const firstname = User.user_firstname;
             const lastname = User.user_lastname;
