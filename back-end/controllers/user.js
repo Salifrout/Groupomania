@@ -9,7 +9,7 @@ exports.signup = (req, res) => {
     const correctEmail = new RegExp(/[a-z|0-9]{2,}[@][a-z]{2,}[\.][a-z]{2,3}/);
     const correctPassword = new RegExp(/.{12,30}/);
     if (correctEmail.test(req.body.user_email) && correctPassword.test(req.body.user_password)) {
-      const emailCryptoJs = cryptojs.HmacSHA256(req.body.user_email, 'U69vk2t3{jkjmEU]52?j?a.@932)5cP2T>26Rh)8R2#!4Ei6K4dM=!9ABx$]qEcdTTg9$24hVd6WH/-4}L=D?TsnVNt!tK?$:4Wn').toString();
+      const emailCryptoJs = cryptojs.HmacSHA256(req.body.user_email, process.env.EMAIL_PROTECTED).toString();
       bcrypt.hash(req.body.user_password, 10)
         .then(hash => {
           const user = new User ({
@@ -21,7 +21,7 @@ exports.signup = (req, res) => {
           });
           user.save()
         .then(() => res.status(201).json({ message: 'Un nouvel utilisateur a été enregistré !'}))
-            .catch(error => res.status(400).json({ error /*: 'réponse backend défavorable !'*/}));
+            .catch(error => res.status(400).json({ error }));
         })
         .catch(error => res.status(500).json({ error }));
     } else {
@@ -33,7 +33,7 @@ exports.signup = (req, res) => {
 };
 
 exports.login = (req, res) => {
-  const emailCryptoJs = cryptojs.HmacSHA256(req.body.user_email, 'U69vk2t3{jkjmEU]52?j?a.@932)5cP2T>26Rh)8R2#!4Ei6K4dM=!9ABx$]qEcdTTg9$24hVd6WH/-4}L=D?TsnVNt!tK?$:4Wn').toString();
+  const emailCryptoJs = cryptojs.HmacSHA256(req.body.user_email, process.env.EMAIL_PROTECTED).toString();
     User.findOne({ user_email: emailCryptoJs })
       .then(user => {
         if (!user) {

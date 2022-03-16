@@ -2,11 +2,11 @@ const Sequelize = require('sequelize');
 require('dotenv').config();
 
 const sequelize = new Sequelize(
-    'groupomania',
-    'root',
-    'BT664Grt', {
+    process.env.DB_NAME,
+    process.env.DB_USER,
+    process.env.DB_PASSWORD, {
         dialect: 'mysql',
-        host: 'localhost',
+        host: process.env.DB_HOST,
         pool: {
             max: 5,
             min: 0,
@@ -17,7 +17,3 @@ const sequelize = new Sequelize(
 );
 
 module.exports = sequelize;
-
-//Ici, l'utilisateur est le user 'root'. Dans un projet réel, il faudrait utiliser un autre utilisateur disposant
-//uniquement de privilèges accordant les fonctionnalités nécessaires pour faire fonctionner l'application pour
-//éviter les risques liés à la sécurité au cas où un pirate tenterait de corrompre le projet.
