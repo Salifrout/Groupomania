@@ -1,47 +1,7 @@
 <template>
 <div>
-  <header>
-    <div id="logoBar">
-      <h1 id="groupomania">Groupomania</h1>
-    </div>
-    
-    <div id="navBar_register">
-      <nav>
-        <ul>
-          <li>
-            <router-link :to="{ name: 'Signup' }">S'inscrire</router-link>
-          </li>
-          <br />
-          <li>
-            <router-link :to="{ name: 'Login' }">Se connecter</router-link>
-          </li>
-        </ul>
-      </nav>
-    </div>
-
-    <div id="navBar_navigate">
-      <nav>
-        <ul>
-          <li>
-            <router-link :to="{ name: 'Profile' }">Mon profil</router-link>
-          </li>
-          <br />
-          <li>
-            <router-link :to="{ name: 'Published' }">Forum</router-link>
-          </li>
-          <br />
-          <li>
-            <router-link :to="{ name: 'Publish' }">Publier</router-link>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
+  
   <router-view />
-
-  <footer>
-  </footer>
  
 </div>
 </template>
@@ -68,40 +28,18 @@ export default {
   color: #2c3e50;
 }*/
 
-header {
-  display: flex;
-  margin-bottom: 160px;
-  #logoBar {
-    background-color: #fd2d01;
-    height: 120px;
-    width: 70%;
-    h1 {
-      color: #ffd7d7;
-      font-weight: 900;
-      margin: auto;
-      text-align: center;
-      margin-top: 35px;
-    }
-  }  
-}
-
 .intro {
   text-align: justify;
   &_label {
     color: #fd2d01;
     font-weight: bold;
+    margin-top: 25px;
   }
   &_input {
     margin-bottom: 16px;
   }
 }
 
-footer {
-  margin: 0;
-  margin-top: 160px;
-  background-color: #fd2d01;
-  height: 80px;
-}
 /*
 #nav {
   padding: 30px;

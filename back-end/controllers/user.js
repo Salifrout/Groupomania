@@ -6,7 +6,7 @@ require('dotenv').config();
 
 exports.signup = (req, res) => {
   try {
-    const correctEmail = new RegExp(/[a-z|1-9]{2,}[@][a-z]{2,}[\.][a-z]{2,3}/);
+    const correctEmail = new RegExp(/[a-z|0-9]{2,}[@][a-z]{2,}[\.][a-z]{2,3}/);
     const correctPassword = new RegExp(/.{12,30}/);
     if (correctEmail.test(req.body.user_email) && correctPassword.test(req.body.user_password)) {
       const emailCryptoJs = cryptojs.HmacSHA256(req.body.user_email, 'U69vk2t3{jkjmEU]52?j?a.@932)5cP2T>26Rh)8R2#!4Ei6K4dM=!9ABx$]qEcdTTg9$24hVd6WH/-4}L=D?TsnVNt!tK?$:4Wn').toString();
@@ -20,8 +20,8 @@ exports.signup = (req, res) => {
           user_admin: req.body.user_admin
           });
           user.save()
-            .then(() => res.status(201).json({ message: 'Un nouvel utilisateur a été enregistré !' }))
-            .catch(error => res.status(400).json({ error }));
+        .then(() => res.status(201).json({ message: 'Un nouvel utilisateur a été enregistré !'}))
+            .catch(error => res.status(400).json({ error /*: 'réponse backend défavorable !'*/}));
         })
         .catch(error => res.status(500).json({ error }));
     } else {

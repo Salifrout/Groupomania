@@ -1,57 +1,48 @@
 <template>
-<div id="profilMine">
-    <div id="profilBar">
-        <div id="profilFirstname">
-            <p class="info">Mon prénom: </p>
-            <p class="enter"></p>
-        </div>
-        <div id="profilLastname">
-            <p class="info">Mon patronyme: </p>
-            <p class="enter"></p>
-        </div>
-        <div id="profilAdmin">
-            <p class="info">Accès administrateur: </p>
-            <p class="enter"></p>
-        </div>    
-    </div>     
-    
-    <img src="favicon.ico">
+<div>
+    <Header />
 
-    <div id="profilTools">
-        <input type="submit" value="Supprimer mon compte" class="submit">
-        <input type="submit" value="Me déconnecter" class="submit">
+    <div id="profilMine">
+        <div id="profilBar">
+            <div id="profilFirstname">
+                <p class="info">Mon prénom: </p>
+                <p class="enter"></p>
+            </div>
+            <div id="profilLastname">
+                <p class="info">Mon patronyme: </p>
+                <p class="enter"></p>
+            </div>
+            <div id="profilAdmin">
+                <p class="info">Accès administrateur: </p>
+                <p class="enter"></p>
+            </div>    
+        </div>     
+    
+        <img src="favicon.ico">
+
+        <div id="profilTools">
+            <input type="submit" value="Supprimer mon compte" class="submit">
+            <input type="submit" value="Me déconnecter" class="submit">
+        </div>
     </div>
 
+    <Footer />
 </div>
 </template>
 
 <script>
-export default {
+import Header from '../components/Header_forum.vue';
+import Footer from '../components/Footer.vue';
 
+export default {
+    components: {
+        Header,
+        Footer
+    }
 }
 </script>
 
 <style scoped lang="scss">
-#navBar_ {
-    &register {
-        display: none;
-    }
-    &navigate {
-        background-color: #ffd7d7;
-        width: 30%;
-        height: 120px;
-        ul {
-            padding: 10px;
-            a {
-            text-decoration: none;
-            color: #fff;
-            font-weight: 900;
-            font-size: large;
-            }
-        }
-    }
-}
-
 #profil {
     &Mine {
         width: 50%;

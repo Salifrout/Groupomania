@@ -1,5 +1,7 @@
 <template>
-  <div id="login">
+  <div>
+    <Header />
+    <div id="login">
     <p class="intro">Vous avez déjà un compte Groupomania ? Veuillez entrer vos informations de connexion. Sinon, veuillez d'abord vous <router-link :to="{ name: 'Signup' }">créer un compte.</router-link></p>
     <form method="get">
         <label for="e-mail" class="intro_label">Veuillez renseigner votre email:</label><br />
@@ -8,39 +10,24 @@
         <input type="password" id="pass-word" class="intro_input" required><br /><br />
         <input type="submit" value="Je me connecte" class="submit">
     </form>
+    </div>
+    <Footer />
   </div>
 </template>
 
 <script>
-/*import Signup from './Signup.vue'
+import Header from '../components/Header_user.vue';
+import Footer from '../components/Footer.vue';
 
 export default {
- name: Login,
- components: Signup
-}*/
+  components: {
+      Header,
+      Footer
+  }
+}
 </script>
 
 <style scoped lang="scss">
-#navBar_ {
-  &register {
-    background-color: #ffd7d7;
-    width: 30%;
-    height: 120px;
-    ul {
-      padding: 10px;
-      a {
-        text-decoration: none;
-        color: #fff;
-        font-weight: 900;
-        font-size: large;
-        }
-      }
-    }
-  &navigate {
-    display: none;
-  }
-}
-
 #login {
   margin: auto;
   padding: 8%;

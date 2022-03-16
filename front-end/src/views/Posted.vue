@@ -1,5 +1,8 @@
 <template>
-  <div id="postForum">
+<div>
+    <Header />
+
+      <div id="postForum">
     <div id="postTitle">
         <h2 id="postTitle_h2">
             TITRE
@@ -67,11 +70,20 @@
     </div>
 
 </div>
+
+    <Footer />
+</div>
 </template>
 
 <script>
-export default {
+import Header from '../components/Header_forum.vue';
+import Footer from '../components/Footer.vue';
 
+export default {
+    components: {
+        Header,
+        Footer
+    }
 }
 </script>
 

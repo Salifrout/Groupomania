@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../utils/database');
-const correctEmail = new RegExp(/[a-z|1-9]{2,}[@][a-z]{2,}[\.][a-z]{2,3}/);
+/*const correctEmail = new RegExp(/[a-z|0-9]{2,}[@][a-z]{2,}[\.][a-z]{2,3}/);*/
 /*const correctEmail = new RegExp('^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$');*/
 
 const User = sequelize.define('user', {

@@ -1,7 +1,11 @@
 <template>
     <div>
-    <img alt="Cette page n'existe pas" src="../assets/NotFound.png">
-    <p>Désolé, il semble que la page demandée n'existe pas. Veuillez vérifier !</p>
+        <Header />
+
+        <img alt="Cette page n'existe pas" src="../assets/NotFound.png">
+        <p>Désolé, il semble que la page demandée n'existe pas. Veuillez vérifier !</p>
+        
+        <Footer />
     </div>
 </template>
 
@@ -13,6 +17,16 @@ export default defineComponent({
         
     },
 })*/
+
+import Header from '../components/Header_user.vue';
+import Footer from '../components/Footer.vue';
+
+export default {
+    components: {
+        Header,
+        Footer
+    }
+}
 </script>
 
 

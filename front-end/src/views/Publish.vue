@@ -1,32 +1,44 @@
 <template>
-<div id="publishForum">
-    <div id="publishTitle">
-        <div id="publishTibleBox">
-            <label for="publishTitle_label" id="publishTitle_label">Titre</label>
+<div>
+   <Header />
+
+    <div id="publishForum">
+        <div id="publishTitle">
+            <div id="publishTibleBox">
+                <label for="publishTitle_label" id="publishTitle_label">Titre</label>
+            </div>
+            <input type="text" size="30" max-length="30" id="publishTitle_input" placeholder=" Veuillez prévoir un titre pour votre poste..." required autofocus>
         </div>
-        <input type="text" size="30" max-length="30" id="publishTitle_input" placeholder=" Veuillez prévoir un titre pour votre poste..." required autofocus>
+
+        <div id="publishMedia">
+            <input type="file">
+        </div>
+
+        <div id="publishText">
+            <textarea id="publishTextArea" required>Hey, coucou à tous les visiteurs du forum !</textarea>
+        </div>
+
+        <div id="chooseAct">
+            <div id="backForum">
+                <router-link :to="{ name: 'Published' }">J'abandonne et retourne sur le forum !</router-link>
+            </div>    
+            <input type="submit" value="Enregistrer" class="submit">
+        </div>
     </div>
 
-    <div id="publishMedia">
-        <input type="file">
-    </div>
-
-    <div id="publishText">
-        <textarea id="publishTextArea" required>Hey, coucou à tous les visiteurs du forum !</textarea>
-    </div>
-
-    <div id="chooseAct">
-        <div id="backForum">
-            <router-link :to="{ name: 'Published' }">J'abandonne et retourne sur le forum !</router-link>
-        </div>    
-        <input type="submit" value="Enregistrer" class="submit">
-    </div>
+    <Footer /> 
 </div>
 </template>
 
 <script>
-export default {
+import Header from '../components/Header_forum.vue';
+import Footer from '../components/Footer.vue';
 
+export default {
+    components: {
+        Header,
+        Footer
+    }
 }
 </script>
 

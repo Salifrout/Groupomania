@@ -1,40 +1,52 @@
 <template>
-  <div class="postForum">
-    <div class="postTitle">
-        <h2 class="postTitle_h2">
-            TITRE
-        </h2>
-    </div>
+    <div>
+        <Header />
 
-    <div class="postMedia">
-        <img src="http://www.snut.fr/wp-content/uploads/2015/12/image-de-nature-9.jpg" alt="">
-    </div>
+        <div class="postForum">
+            <div class="postTitle">
+                <h2 class="postTitle_h2">
+                TITRE
+                </h2>
+            </div>
 
-    <div class="postText">
-        <p class="postTextBlock">
-            UN LONG TEXTE
-        </p>
-    </div>
+            <div class="postMedia">
+                <img src="http://www.snut.fr/wp-content/uploads/2015/12/image-de-nature-9.jpg" alt="">
+            </div>
 
-    <div class="postInfos">
-        <div class="postAuthor">
-            <p class="postInfosAuthor">Publié par:     
-                <span class="postInfosFirstname">PRENOM</span>
-                <span class="postInfosLastname">PATRONYME</span>
-            </p>
+            <div class="postText">
+                <p class="postTextBlock">
+                UN LONG TEXTE
+                </p>
+            </div>
+
+            <div class="postInfos">
+                <div class="postAuthor">
+                    <p class="postInfosAuthor">Publié par:     
+                        <span class="postInfosFirstname">PRENOM</span>
+                        <span class="postInfosLastname">PATRONYME</span>
+                    </p>
+                </div>
+                <p class="postDate">Enregistré le: 
+                <span class="postInfosDate">DATE</span>
+                </p>
+            </div>
+
+            <router-link :to="{ name: 'Posted' }">Accéder aux commentaires</router-link>
         </div>
-        <p class="postDate">Enregistré le: 
-            <span class="postInfosDate">DATE</span>
-        </p>
-    </div>
 
-    <router-link :to="{ name: 'Posted' }">Accéder aux commentaires</router-link>
-</div>
+        <Footer />
+    </div>
 </template>
 
 <script>
-export default {
+import Header from '../components/Header_forum.vue';
+import Footer from '../components/Footer.vue';
 
+export default {
+    components: {
+        Header,
+        Footer
+    }
 }
 </script>
 
