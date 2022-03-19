@@ -65,8 +65,9 @@ exports.logout = (req, res) => {
 };
 
 exports.accessUserProfile = (req,res) => {
-  User.findOne({ user_id: req.params.id })
-    .then(user => res.status(200).json(user))
+  User.findOne({ where: {user_id: req.params.id}, raw: true })
+    .then(user => { if (!user) { return res.status(401).json({ error }); }
+      res.status(200).json(user)})
     .catch(error => res.status(401).json({ error }));
 };
 
@@ -78,7 +79,7 @@ exports.accessUserProfile = (req,res) => {
 };*/
 
 exports.deleteAccount = (req, res) => {
-  User.findOne({ user_id: req.params.id })
+  User.findOne({ where: {user_id: req.params.id}, raw: true })
   try {
     User.deleteOne({ user_id: req.params.id })
       .then(() => res.status(200).json({ message: 'Utilisateur supprimé !'}))
@@ -90,4 +91,4 @@ exports.deleteAccount = (req, res) => {
   }
 };
 
-/*delete : supprimer compte et ses posts et ses comments + clear cookie + retour page de login*/
+//faire un sessionStorage.clear() pour logout et delete

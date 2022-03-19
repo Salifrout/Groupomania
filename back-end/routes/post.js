@@ -4,8 +4,8 @@ const auth = require('../middleware/auth');
 const postCtrl = require('../controllers/post');
 const commentCtrl = require('../controllers/comment');
 
-router.get('/', postCtrl.getAllPosts);
-router.get('/:Gpost_id', postCtrl.getOnePost, commentCtrl.getAllRelatedComments);
+router.get('/', auth, postCtrl.getAllPosts);
+router.get('/:Gpost_id', auth, postCtrl.getOnePost, commentCtrl.getAllRelatedComments);
 router.post('/:user_id', auth, postCtrl.createPost);
 //router.put('/post/:Gpost_id', auth, postCtrl.modifyPost);
 /*router.delete('/post/:Gpost_id', auth, postCtrl.deletePost);*/

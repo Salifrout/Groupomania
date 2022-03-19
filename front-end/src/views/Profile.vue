@@ -22,7 +22,7 @@
 
         <div id="profilTools">
             <input type="submit" value="Supprimer mon compte" class="submit">
-            <input type="submit" value="Me déconnecter" class="submit">
+            <input type="submit" value="Me déconnecter" class="submit" @click="disconnect">
         </div>
     </div>
 
@@ -38,6 +38,27 @@ export default {
     components: {
         Header,
         Footer
+    },
+    created() {
+
+    },
+    methods : {
+        disconnect() {
+            const toQuit = {
+                method: 'GET',
+                redirect: 'follow'
+            };
+
+            fetch("http://localhost:3000/api/user/logout", toQuit)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .then(sessionStorage.removeItem('Authentification'))
+            .then(this.$router.push({ name: 'Login' }))
+            .catch(error => console.log('error', error));
+        },
+        async delete() {
+
+        }
     }
 }
 </script>

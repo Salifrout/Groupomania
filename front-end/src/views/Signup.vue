@@ -52,7 +52,7 @@ export default {
 //envoyer la requête + alert compte créé
 //effacer les données dans le formulaire une fois le compte créé + envisager le e.prevenDefault + alert('le compte a été créé')
 
-    async sendForm() {
+    sendForm() {
       if (this.firstname && this.lastname && this.email && this.password.length > 12 && this.password.length < 30) {
         const BODY = {
             'user_email': this.email,
@@ -69,7 +69,7 @@ export default {
           },
           body: JSON.stringify(BODY)
         };
-        await fetch("http://localhost:3000/api/user/signup", newAccount)
+        fetch("http://localhost:3000/api/user/signup", newAccount)
         .then(response => response.text())
         .then(result => console.log( result ))
         .then(this.email = '', this.password = '', this.firstname = '', this.lastname = '')

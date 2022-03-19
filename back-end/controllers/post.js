@@ -7,7 +7,7 @@ exports.getAllPosts = (req, res) => {
     const MySQL_request = 'SELECT * FROM `Gpost` ORDER BY `Gpost_date` DESC';
     sequelize.query(MySQL_request, (err, result) => {
         if (err) {
-            res.status(404).json({ err});
+            res.status(404).json({ err });
             throw err;
         }
         res.status(200).json(result);

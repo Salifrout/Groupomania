@@ -7,15 +7,15 @@
             <div id="publishTibleBox">
                 <label for="publishTitle_label" id="publishTitle_label">Titre</label>
             </div>
-            <input type="text" size="30" max-length="30" id="publishTitle_input" placeholder=" Veuillez prévoir un titre pour votre poste..." required autofocus>
+            <input type="text" size="30" max-length="30" v-model="title" id="publishTitle_input" placeholder=" Veuillez prévoir un titre pour votre poste..." required autofocus>
         </div>
 
         <div id="publishMedia">
-            <input type="file">
+            <input type="file" accept=".jpg,.jpeg,.png">
         </div>
 
         <div id="publishText">
-            <textarea id="publishTextArea" required>Hey, coucou à tous les visiteurs du forum !</textarea>
+            <textarea id="publishTextArea" v-model="content" required>Hey, coucou à tous les visiteurs du forum !</textarea>
         </div>
 
         <div id="chooseAct">
@@ -38,7 +38,16 @@ export default {
     components: {
         Header,
         Footer
-    }
+    },
+    data() {
+        return {
+            title: '',
+            content: '',
+
+        }
+    },
+
+    //2 possiblités: envoyer soit avec soit sans l'image et mettre les deux dans le BODY
 }
 </script>
 

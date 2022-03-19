@@ -18,7 +18,7 @@ export default defineComponent({
     },
 })*/
 
-import Header from '../components/Header_user.vue';
+import Header from '../components/Header_forum.vue';
 import Footer from '../components/Footer.vue';
 
 export default {

@@ -31,7 +31,7 @@ export default {
     }
   },
   methods: {
-    async toConnect() {
+    toConnect() {
       // écrire la fonction => if(email et password vides...) + requete fetch + renvoyer vers page du forum + vérifier dans cours vuejs 3 comment empecher accès a certains composants si user n'a pas accès
       //auth sur toutes les routes exceptées inscription et connexion côté back
       if (this.email.length > 1 || this.password.length > 1) {
@@ -48,10 +48,11 @@ export default {
           body: JSON.stringify(BODY),
           redirect: 'follow'
         };
-        await fetch ("http://localhost:3000/api/user/login", Connecting)
+        fetch ("http://localhost:3000/api/user/login", Connecting)
         .then(response => response.text())
         .then(result => console.log(result))
-        .then(router.push(ETC. ...))
+        .then(sessionStorage.setItem('Authentification', 'Connecté'))
+        .then(this.$router.push({ name: 'Published', params: { user_email: this.email } }))
         .catch(error => console.log('error', error));
       } else {
         alert('Veuillez remplir les champs requis afin de pouvoir vous connecter.')
