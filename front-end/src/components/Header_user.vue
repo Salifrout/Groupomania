@@ -22,7 +22,7 @@
 
 <script>
 export default {
-    name: 'Header_user'
+  name: 'Header_user'
 }
 </script>
 

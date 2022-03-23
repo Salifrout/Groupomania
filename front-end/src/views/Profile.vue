@@ -5,20 +5,21 @@
     <div id="profilMine">
         <div id="profilBar">
             <div id="profilFirstname">
-                <p class="info">Mon prénom: </p>
+                <p class="info">Mon prénom: {{ user.user_firstname }}</p>
                 <p class="enter"></p>
             </div>
             <div id="profilLastname">
-                <p class="info">Mon patronyme: </p>
+                <p class="info">Mon patronyme: {{ user.user_lastname }}</p>
                 <p class="enter"></p>
             </div>
             <div id="profilAdmin">
-                <p class="info">Accès administrateur: </p>
+                <p v-if="user.user_admin == 1 || user.user_admin == true" class="info">Accès administrateur: oui</p>
+                <p v-else class="info">Accès administrateur: non</p>
                 <p class="enter"></p>
             </div>    
         </div>     
     
-        <img src="favicon.ico">
+        <img src="logo.jpg">
 
         <div id="profilTools">
             <input type="submit" value="Supprimer mon compte" class="submit">
@@ -39,8 +40,15 @@ export default {
         Header,
         Footer
     },
+    data() {
+        return {
+            user : []
+        }
+    },
     created() {
-
+        fetch("http://localhost:3000/api/user/access/" + sessionStorage.getItem('Authentification'))
+        .then((response) => response.json())
+        .then((json) => {this.user = json})
     },
     methods : {
         disconnect() {

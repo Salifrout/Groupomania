@@ -1,31 +1,33 @@
 <template>
 <div>
    <Header />
-
+                                        <!--rajouter form dnas les fichiers où c'est oublié !!!-->
     <div id="publishForum">
-        <div id="publishTitle">
-            <div id="publishTibleBox">
-                <label for="publishTitle_label" id="publishTitle_label">Titre</label>
+        <!--<form method="post">-->
+            <div id="publishTitle">
+                <div id="publishTibleBox">
+                    <label for="publishTitle_label" id="publishTitle_label">Titre</label>
+                </div>
+                <input type="text" size="30" max-length="30" v-model="title" id="publishTitle_input" required autofocus>
             </div>
-            <input type="text" size="30" max-length="30" v-model="title" id="publishTitle_input" placeholder=" Veuillez prévoir un titre pour votre poste..." required autofocus>
-        </div>
 
-        <div id="publishMedia">
-            <input type="file" accept=".jpg,.jpeg,.png">
-        </div>
+            <div id="publishMedia">
+                <input type="file" id="mediaToUpload" accept=".jpg,.jpeg,.png">
+            </div>
 
-        <div id="publishText">
-            <textarea id="publishTextArea" v-model="content" required>Hey, coucou à tous les visiteurs du forum !</textarea>
-        </div>
+            <div id="publishText">
+                <textarea id="publishTextArea" v-model="content" required></textarea>
+            </div>
 
-        <div id="chooseAct">
-            <div id="backForum">
-                <router-link :to="{ name: 'Published' }">J'abandonne et retourne sur le forum !</router-link>
-            </div>    
-            <input type="submit" value="Enregistrer" class="submit">
-        </div>
+            <div id="chooseAct">
+                <div id="backForum">
+                    <router-link :to="{ name: 'Published' }">J'abandonne et retourne sur le forum !</router-link>
+                </div>    
+                <input type="submit" value="Enregistrer" class="submit" @click="postToForum">
+            </div>
+        <!--</form>-->
     </div>
-
+    
     <Footer /> 
 </div>
 </template>
@@ -41,11 +43,46 @@ export default {
     },
     data() {
         return {
-            title: '',
-            content: '',
+            title: 'Veuillez prévoir un titre pour votre poste...',
+            content: 'Hey, coucou à tous les visiteurs du forum !',
 
         }
     },
+    methods: {
+        postToForum() {
+            if (this.title.length > 2 && this.content.length > 5) {
+                const user_email = sessionStorage.getItem('Authentification');
+                const mediaToUpload = document.getElementById('mediaToUpload');
+                const image = mediaToUpload.value ? /*new FormData('media', mediaToUpload)*/ mediaToUpload.value : null;
+                const BODY = image == null ? { 'Gpost_title': this.title, 'Gpost_text': this.content } : { 'Gpost_title': this.title, 'Gpost_text': this.content, 'Gpost_media': image };
+                const newPost = {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(BODY),
+                    redirect: 'follow'
+                };
+
+                console.log(user_email + 'test 1');
+                console.log(typeof image + 'test 2');
+                console.log(image + 'test 3');
+                console.log(BODY + 'test 4');
+                console.log(JSON.stringify(BODY) + 'test 5');
+
+                fetch("http://localhost:3000/api/post/" + user_email, newPost)
+                .then(response => response.text())
+                .then(result => console.log( result ))
+                .then(alert('Votre poste a été enregistré.'))
+                .catch(error => console.log( error ));
+
+            } else {
+                alert('Vous ne pouvez pas publier de poste sans un titre ou un message d\'une longueur minimale.')
+            }
+            
+        }
+    }
 
     //2 possiblités: envoyer soit avec soit sans l'image et mettre les deux dans le BODY
 }

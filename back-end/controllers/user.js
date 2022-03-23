@@ -19,7 +19,7 @@ exports.signup = (req, res) => {
           user_lastname: req.body.user_lastname,
           user_admin: req.body.user_admin
           });
-          user.save()
+        user.save()
         .then(() => res.status(201).json({ message: 'Un nouvel utilisateur a été enregistré !'}))
             .catch(error => res.status(400).json({ error }));
         })
@@ -65,7 +65,8 @@ exports.logout = (req, res) => {
 };
 
 exports.accessUserProfile = (req,res) => {
-  User.findOne({ where: {user_id: req.params.id}, raw: true })
+  const emailCryptoJs = cryptojs.HmacSHA256(req.params.user_email, process.env.EMAIL_PROTECTED).toString();
+  User.findOne({ where: {user_email: emailCryptoJs}, raw: true })
     .then(user => { if (!user) { return res.status(401).json({ error }); }
       res.status(200).json(user)})
     .catch(error => res.status(401).json({ error }));

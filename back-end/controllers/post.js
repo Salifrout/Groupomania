@@ -1,4 +1,5 @@
 const sequelize = require("../utils/database");
+const cryptojs = require('crypto-js');
 const Gpost = require('../models/groupomania-post');
 const User = require ('../models/user');
 const fs = require('fs');
@@ -23,8 +24,9 @@ exports.getOnePost = (req, res, next) => {
 };
 
 exports.createPost = (req, res) => {
-    User.findOne({ where: {user_id: req.params.user_id}, raw: true })
-        .then(() => {
+    const emailCryptoJs = cryptojs.HmacSHA256(req.params.user_email, process.env.EMAIL_PROTECTED).toString();
+    User.findOne({ where: {user_email: emailCryptoJs}, raw: true })
+        .then((User) => {
             const firstname = User.user_firstname;
             const lastname = User.user_lastname;
             const MEDIA = req.file ? `${req.protocol}://${req.get('host')}/media/${req.file.filename}` : null;
@@ -34,7 +36,9 @@ exports.createPost = (req, res) => {
                 Gpost_media: MEDIA,
                 Gpost_firstNameAuthor: firstname,
                 Gpost_lastNameAuthor: lastname
-                })
+                });
+            /*console.log(firstname + ('test126'));
+            console.log(...req.body);*/
             post.save()
                 .then(() => res.status(201).json({ message: 'Poste correctement enregistré !'}))
                 .catch(error => res.status(401).json({ error }));
