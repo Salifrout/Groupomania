@@ -8,6 +8,6 @@ router.post('/login', userCtrl.login);
 router.get('/access/:user_email', userCtrl.accessUserProfile);
 /* router.put('/user/:user_id/update', auth, userCtrl.updateUser); //ne peux pas changer mdp et email */
 router.get('/logout', userCtrl.logout);
-router.get('/delete', userCtrl.deleteAccount);
+router.get('/delete/:user_email', userCtrl.deleteAccount);
 
 module.exports = router;

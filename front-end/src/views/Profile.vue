@@ -22,8 +22,8 @@
         <img src="logo.jpg">
 
         <div id="profilTools">
-            <input type="submit" value="Supprimer mon compte" class="submit">
-            <input type="submit" value="Me déconnecter" class="submit" @click="disconnect">
+            <input type="submit" value="Supprimer mon compte" class="submit" @click.stop="delete">
+            <input type="submit" value="Me déconnecter" class="submit" @click.stop="disconnect">
         </div>
     </div>
 
@@ -60,12 +60,15 @@ export default {
             fetch("http://localhost:3000/api/user/logout", toQuit)
             .then(response => response.text())
             .then(result => console.log(result))
-            .then(sessionStorage.removeItem('Authentification'))
+            .then(sessionStorage.clear())
             .then(this.$router.push({ name: 'Login' }))
             .catch(error => console.log('error', error));
         },
-        async delete() {
+        delete() {
+            fetch("http:localhost:3000/api/user/delete/" + sessionStorage.getItem('Authentification'))
+            .then
 
+            sessionStorage.clear()
         }
     }
 }
