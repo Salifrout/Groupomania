@@ -37,7 +37,8 @@ try {
     console.error('Impossible de se connecter, erreur suivante: ', error);
 }
 
-app.use('/media', express.static(path.join(__dirname, 'media')));
+app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use(express.static('images'));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(helmet());

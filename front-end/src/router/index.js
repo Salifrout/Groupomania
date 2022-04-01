@@ -27,7 +27,7 @@ const routes = [
     }
   },
   {
-    path: "/publish/",
+    path: "/publish",
     name: "Publish",
     component: Publish,
     meta: {

@@ -2,37 +2,38 @@
     <div>
         <Header />
 
-        <div class="postForum">
+        <!--<div class="postForum" v-for="for of Forum" :key="for.Gpost_id">
             <div class="postTitle">
                 <h2 class="postTitle_h2">
-                TITRE
+                {{ for.Gpost_title }}
                 </h2>
             </div>
 
-            <div class="postMedia">
-                <img src="http://www.snut.fr/wp-content/uploads/2015/12/image-de-nature-9.jpg" alt="">
+            <div v-if="for.Gpost_media" class="postMedia">
+                <img :src="for.Gpost_media" alt="image privée du réseau social groupomania">
             </div>
 
             <div class="postText">
                 <p class="postTextBlock">
-                UN LONG TEXTE
+                {{ for.Gpost_text }}
                 </p>
             </div>
 
             <div class="postInfos">
                 <div class="postAuthor">
                     <p class="postInfosAuthor">Publié par:     
-                        <span class="postInfosFirstname">PRENOM</span>
-                        <span class="postInfosLastname">PATRONYME</span>
+                        <span class="postInfosFirstname"> {{ for.Gpost_firstNameAuthor }} </span>
+                        <span class="postInfosLastname"> {{ for.Gpost_lastNameAuthor }} </span>
                     </p>
                 </div>
                 <p class="postDate">Enregistré le: 
-                <span class="postInfosDate">DATE</span>
+                <span class="postInfosDate"> {{ for.Gpost_date }} </span>
                 </p>
             </div>
 
             <router-link :to="{ name: 'Posted' }">Accéder aux commentaires</router-link>
-        </div>
+        </div> -->
+        <!--rajouter le paramètre de la route juste en haut ! -->
 
         <Footer />
     </div>
@@ -46,6 +47,18 @@ export default {
     components: {
         Header,
         Footer
+    },
+    data() {
+        return {
+            Forum : []
+        }
+    },
+    created() {
+        fetch("http://localhost:3000/api/post")
+        .then((lou) => alert(lou))
+        .then((json) => {this.Forum = json})
+        .then(console.log(this.Forum.length))
+        .catch(error => console.log('error', error));
     }
 }
 </script>
@@ -113,5 +126,9 @@ export default {
     &Date {
         font-weight: 700;
     }
+}
+
+span {
+    margin-left: 4px;
 }
 </style>

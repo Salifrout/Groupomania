@@ -8,7 +8,7 @@ const MIME_TYPES = {
 
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
-    callback(null, 'media');
+    callback(null, 'images');
   },
   filename: (req, file, callback) => {
     const name = file.originalname.split(' ').join('_').split('.')[0];
@@ -17,4 +17,6 @@ const storage = multer.diskStorage({
   }
 });
 
-module.exports = multer({storage: storage}).single('media');
+module.exports = multer({storage: storage}).single('image');
+
+//vérifier ici si les noms sont bons, puis dans le controller, changer par le file récupéré

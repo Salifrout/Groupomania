@@ -5,7 +5,7 @@ const User = require ('../models/user');
 const fs = require('fs');
 
 exports.getAllPosts = (req, res) => {
-    const MySQL_request = 'SELECT * FROM `Gpost` ORDER BY `Gpost_date` DESC';
+    const MySQL_request = 'SELECT * FROM `gposts` ORDER BY `Gpost_date` DESC;';
     sequelize.query(MySQL_request, (err, result) => {
         if (err) {
             res.status(404).json({ err });
@@ -24,26 +24,81 @@ exports.getOnePost = (req, res, next) => {
 };
 
 exports.createPost = (req, res) => {
+    /*console.log(JSON.parse(req.body.FormData) + " => parse body");
+    console.log(req.body.FormData + " => body");
+    console.log(DATA + " => data");
+    console.log(typeof DATA + " => typeof data");*/
     const emailCryptoJs = cryptojs.HmacSHA256(req.params.user_email, process.env.EMAIL_PROTECTED).toString();
     User.findOne({ where: {user_email: emailCryptoJs}, raw: true })
         .then((User) => {
+            const POSTED = JSON.parse(req.body.post);
+            const {Gpost_title, Gpost_text} = POSTED;
             const firstname = User.user_firstname;
             const lastname = User.user_lastname;
-            const MEDIA = req.file ? `${req.protocol}://${req.get('host')}/media/${req.file.filename}` : null;
-            const post = new Gpost({
-                Gpost_title: req.body.Gpost_title,
-                Gpost_text: req.body.Gpost_text,
-                Gpost_media: MEDIA,
+            /*var media = req?.file?.filename;*/
+            const media = JSON.parse(req.body.Gpost_media);
+
+            if (!Gpost_text && !Gpost_title) {
+                return res.status(400).json({ error })
+            }
+
+            /*if (media) {
+                media = `${req.protocol}://${req.get('host')}/images/${media}`
+            }*/
+
+            try {
+                const post = new Gpost({
+                Gpost_title,
+                Gpost_text,
+                Gpost_media: media,
                 Gpost_firstNameAuthor: firstname,
                 Gpost_lastNameAuthor: lastname
                 });
+                post.save()
+                    .then(() => res.status(201).json({ message: 'Poste correctement enregistré !'}))
+                    .catch(error => res.status(401).json({ error }));
+                
+            } catch(error) {
+                return res.status(500).json({ error })
+            }})
+        .catch(error => res.status(500).json({ error }));
+
+
+
+
+
+
+
+
+
+            /*const DATA_TITLE = JSON.parse(req.body?.FormData);
+
+            const DATA_MEDIA = JSON.PARSE(req.body?.FormData);
+
+
+            const firstname = User.user_firstname;
+            const lastname = User.user_lastname;
+            const MEDIA = req.file ? `${req.protocol}://${req.get('host')}/media/${req.file.filename}` : "";
+
+            console.log(DATA + ' test 100');
+            console.log(MEDIA + ' test 101');
+            console.log(typeof MEDIA + ' test 103');
+
+            const post = new Gpost({*/
+                /*Gpost_title: req.body.Gpost_title,
+                Gpost_text: req.body.Gpost_text,*/
+                /*...DATA,
+                Gpost_media: MEDIA,
+                Gpost_firstNameAuthor: firstname,
+                Gpost_lastNameAuthor: lastname
+                });*/
             /*console.log(firstname + ('test126'));
             console.log(...req.body);*/
-            post.save()
+            /*post.save()
                 .then(() => res.status(201).json({ message: 'Poste correctement enregistré !'}))
                 .catch(error => res.status(401).json({ error }));
             })
-        .catch(error => res.status(500).json({ error }));
+        .catch(error => res.status(500).json({ error }));*/
     }
 ;
 //identifier avec user.findbyID/findOne : user_id et const pour le définir et req.params

@@ -85,7 +85,7 @@ exports.deleteAccount = (req, res) => {
   User.findOne({ where: {user_email: emailCryptoJs}, raw: true })*/
   try {
     const emailCryptoJs = cryptojs.HmacSHA256(req.params.user_email, process.env.EMAIL_PROTECTED).toString();
-    const MySQL_request = "DELETE FROM `users` WHERE `user_email` = '" + emailCryptoJs + "'";
+    const MySQL_request = "DELETE FROM `users` WHERE `user_email` = '" + emailCryptoJs + ";'";
     sequelize.query(MySQL_request, (err, result) => {
       if (!user) {
         return res.status(401).json({ error });
