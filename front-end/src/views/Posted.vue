@@ -5,29 +5,25 @@
       <div id="postForum">
     <div id="postTitle">
         <h2 id="postTitle_h2">
-            TITRE
+            {{ Posted.Gpost_title }}
         </h2>
-    </div>
-
-    <div id="postMedia">
-        <img src="http://www.snut.fr/wp-content/uploads/2015/12/image-de-nature-9.jpg" alt="">
     </div>
 
     <div id="postText">
         <p id="postTextBlock">
-            UN LONG TEXTE
+            {{ Posted.Gpost_text }}
         </p>
     </div>
 
     <div id="postInfos">
         <div id="postAuthor">
             <p id="postInfosAuthor">Publié par:     
-                <span id="postInfosFirstname">PRENOM</span>
-                <span id="postInfosLastname">PATRONYME</span>
+                <span id="postInfosFirstname"> {{ Posted.Gpost_firstNameAuthor }} </span>
+                <span id="postInfosLastname"> {{ Posted.Gpost_lastNameAuthor }} </span>
             </p>
         </div>
         <p id="postDate">Enregistré le: 
-            <span id="postInfosDate">DATE</span>
+            <span id="postInfosDate"> {{ Posted.Gpost_date }} </span>
         </p>
     </div>
 
@@ -39,32 +35,32 @@
     </div>
 
     <div id="postComment">
-        <input type="text" placeholder="Entrer votre commentaire ici..." id="postComment1" class="intro_input" autofocus><br />
-        <input type="submit" value="Valider mon commentaire" id="validateComment1">
+        <input type="text" placeholder="Entrer votre commentaire ici..." v-model="OneComment" id="postComment1" class="intro_input" autofocus><br />
+        <input type="submit" value="Valider mon commentaire" id="validateComment1" @click="postComment">
     </div>
 
-    <div id="postedComment">
+    <div id="postedComment" v-if="Comments.length > 0" v-for="(Comment, key) in Comments" :key="key">
 
         <div id="postedCommentX" class="intro_input" autofocus>
             <div id="postedCommentX_border">
-               <p>COMMENTAIRE</p> 
+               <p> {{ Comment.comment_text }} </p> 
             </div>            
         </div>
 
         <div id="postedCommentXdisplay">
             <div id="postedCommentXAuthor">
                 <p id="postedCommentXInfosAuthor">Publié par:     
-                    <span id="postedCommentXInfosFirstname">PRENOM</span>
-                    <span id="postedCommentXInfosLastname">PATRONYME</span>
+                    <span id="postedCommentXInfosFirstname"> {{ Comment.comment_firstname }} </span>
+                    <span id="postedCommentXInfosLastname"> {{ Comment.comment_lastname }} </span>
                 </p>
             </div>
             <p id="postedCommentXDate">Enregistré le: 
-                <span id="postedCommentXInfosDate">DATE</span>
+                <span id="postedCommentXInfosDate"> {{ Comment.comment_date }} </span>
             </p>
         </div>
 
         <div id="commentTrash">
-            <img src="../assets/Comment_trash.png" alt="modérer le commentaire">
+            <img src="../assets/Comment_trash.png" alt="modérer le commentaire" @click="deleteComment">
         </div>
 
     </div>
@@ -83,6 +79,56 @@ export default {
     components: {
         Header,
         Footer
+    },
+    data() {
+        return {
+            Posted: [],
+            Comments: [],
+            OneComment: ''   
+        }
+    },
+    created() {
+        const UrlOfPage = location;
+        const Url = new URL(UrlOfPage);
+        const thePost = Url.searchParams.get("id");
+
+        fetch("http://localhost:3000/api/post/" + thePost)
+        .then((response) => response.json())
+        .then((json) => {this.Posted = json})
+        .catch(error => console.log('error', error));
+
+        fetch("http://localhost:3000/api/comment/" + thePost)
+        .then((response) => response.json())
+        .then((json) => {this.Comments = json})
+        .catch(error => console.log('error', error));
+    },
+    methods: {
+        postComment() {
+            const UrlOfPage = location;
+            const Url = new URL(UrlOfPage);
+            const thePost = Url.searchParams.get("id");
+            const user_email = sessionStorage.getItem('Authentification');
+
+            const BODY = { 'comment_text': this.OneComment, 'Gpost_id': thePost };
+            const newPost = {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(BODY),
+                redirect: 'follow'
+            };
+
+            fetch("http://localhost:3000/api/comment/" + user_email, newPost)
+            .then(response => response.text())
+            .then(result => console.log( result ))
+            .then(() => location.reload())
+            .catch(error => console.log( error ));
+        },
+        deleteComment() {
+
+        }
     }
 }
 </script>
@@ -121,11 +167,6 @@ export default {
             display: inline-block;
             width: 100%;
             text-align: justify;
-        }
-    }
-    &Media {
-        img {
-            width: 100%;
         }
     }
     &Author {
@@ -236,5 +277,9 @@ export default {
     img {
         width: 100%;
     }
+}
+
+span {
+    margin-left: 4px;
 }
 </style>

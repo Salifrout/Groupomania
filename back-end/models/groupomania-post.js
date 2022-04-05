@@ -16,9 +16,6 @@ const GroupomaniaPost = sequelize.define('Gpost', {
     Gpost_text: {
         type:Sequelize.TEXT,
     },
-    Gpost_media: {
-        type: Sequelize.STRING
-    },
     Gpost_firstNameAuthor: {
         allowNull: false,
         type: Sequelize.STRING

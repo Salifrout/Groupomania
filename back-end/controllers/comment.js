@@ -1,8 +1,9 @@
 const Comment = require('../models/comment');
 const Gpost = require('../models/groupomania-post');
+const cryptojs = require('crypto-js');
+const User = require ('../models/user');
 
-
-exports.getAllRelatedComments = (req, res) => {
+exports.getAllRelatedComments = async (req, res) => {
     /*const MySQL_request = 'SELECT * FROM `comment` WHERE `related_postId` = ' + req.params.Gpost_id + 'ORDER BY `comment_date` DESC';
     sequelize.query(MySQL_request, (err, result) => {
 
@@ -13,7 +14,7 @@ exports.getAllRelatedComments = (req, res) => {
         res.status(200).json(result);
     });*/
     try {
-        const comments = Comment.findAll({where: { related_postId: req.params.Gpost_id}, order: ['comment_date', 'DESC'], raw: true });
+        const comments = await Comment.findAll({where: { related_postId: req.params.Gpost_id}, order: [['comment_date', 'ASC']], raw: true });
         return res.status(200).json(comments);
     } catch {
         res.status(404).json({ err });
@@ -22,14 +23,17 @@ exports.getAllRelatedComments = (req, res) => {
 };
 
 exports.createComment = (req, res) => {
-    Gpost.findOne({ Gpost_id: req.params.Gpost_id })
-        .then(() => {
+    const emailCryptoJs = cryptojs.HmacSHA256(req.params.user_email, process.env.EMAIL_PROTECTED).toString();
+    User.findOne({ where: {user_email: emailCryptoJs}, raw: true })
+        .then((User) => {
+            const firstname = User.user_firstname;
+            const lastname = User.user_lastname;
             const comment = new Comment ({
                 comment_text: req.body.comment_text,
-                comment_firstname: req.body.comment_firstname,
-                comment_lastname: req.body.comment_lastname,
-                related_userId: req.body.related_userId,
-                related_postId: req.params.Gpost_id
+                comment_firstname: firstname,
+                comment_lastname: lastname,
+                related_userEmail: req.params.user_email, //corriger par related_useremail là où models/comments/related_userId
+                related_postId: req.body.Gpost_id
             })
             comment.save()
                 .then(() => res.status(201).json({ message: 'Commentaire correctement enregistré !'}))
@@ -40,6 +44,25 @@ exports.createComment = (req, res) => {
 ;
 
 exports.deleteComment = (req, res) => {
+    try {
+        const emailCryptoJs = cryptojs.HmacSHA256(req.params.user_email, process.env.EMAIL_PROTECTED).toString();
+        User.findOne({ where: {user_email: emailCryptoJs}, raw: true })
+        .then((User) => {
+            if (User.user_admin === true || User.user_admin === 1) {
+                Comment.deleteOne({ where: {comment_id: req.params.comment_id}, raw: true })
+                .then(() => res.status(200).json({ message: 'Le commentaire a été supprimé !'}))
+                .catch(error => res.status(400).json({ error }));
+            } else if (User.user_admin === false || User.user_admin === 0) {
+                res.status(401).json ({ error: 'La requête n\'est pas authorisée aux utilisateurs ne disposant pas de privilèges administrateurs.'})
+            } else {
+                res.status(400).json({ error })
+            }
+        })
+        .catch(error => res.status(400).json({ error }));
+    } catch {
+        return res.status(500).json({ error })
+    }
+    
     //action prévue uniquement pour les admin
 
     //vérifier si user-admin: true (if)

@@ -21,8 +21,8 @@ const Comment = sequelize.define('comment', {
         allowNull: false,
         type: Sequelize.STRING
     },
-    related_userId: {
-        type: Sequelize.INTEGER,
+    related_userEmail: {
+        type: Sequelize.STRING,
         allowNull: false
     },
     related_postId: {

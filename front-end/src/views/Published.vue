@@ -2,38 +2,35 @@
     <div>
         <Header />
 
-        <!--<div class="postForum" v-for="for of Forum" :key="for.Gpost_id">
+        <p id="warning" v-if="Forum.length < 1"> Aucun poste n'a encore été partagé. Soyez le premier à publier sur Groupomania !</p>
+
+        <div class="postForum" v-else v-for="Fors in Forum" :key="Fors.Gpost_id">
             <div class="postTitle">
                 <h2 class="postTitle_h2">
-                {{ for.Gpost_title }}
+                {{ Fors.Gpost_title }}
                 </h2>
-            </div>
-
-            <div v-if="for.Gpost_media" class="postMedia">
-                <img :src="for.Gpost_media" alt="image privée du réseau social groupomania">
             </div>
 
             <div class="postText">
                 <p class="postTextBlock">
-                {{ for.Gpost_text }}
+                {{ Fors.Gpost_text }}
                 </p>
             </div>
 
             <div class="postInfos">
                 <div class="postAuthor">
                     <p class="postInfosAuthor">Publié par:     
-                        <span class="postInfosFirstname"> {{ for.Gpost_firstNameAuthor }} </span>
-                        <span class="postInfosLastname"> {{ for.Gpost_lastNameAuthor }} </span>
+                        <span class="postInfosFirstname"> {{ Fors.Gpost_firstNameAuthor }} </span>
+                        <span class="postInfosLastname"> {{ Fors.Gpost_lastNameAuthor }} </span>
                     </p>
                 </div>
                 <p class="postDate">Enregistré le: 
-                <span class="postInfosDate"> {{ for.Gpost_date }} </span>
+                <span class="postInfosDate"> {{ Fors.Gpost_date }} </span>
                 </p>
             </div>
 
-            <router-link :to="{ name: 'Posted' }">Accéder aux commentaires</router-link>
-        </div> -->
-        <!--rajouter le paramètre de la route juste en haut ! -->
+            <router-link :to="{ name: 'Posted', query: { id: Fors.Gpost_id }}">Accéder aux commentaires</router-link>
+        </div>
 
         <Footer />
     </div>
@@ -50,14 +47,13 @@ export default {
     },
     data() {
         return {
-            Forum : []
+            Forum : {}
         }
     },
     created() {
         fetch("http://localhost:3000/api/post")
-        .then((lou) => alert(lou))
+        .then((response) => response.json())
         .then((json) => {this.Forum = json})
-        .then(console.log(this.Forum.length))
         .catch(error => console.log('error', error));
     }
 }
@@ -100,11 +96,6 @@ export default {
             text-align: justify;
         }
     }
-    &Media {
-        img {
-            width: 100%;
-        }
-    }
     &Author {
         display: flex;
         flex-wrap: wrap;
@@ -126,6 +117,12 @@ export default {
     &Date {
         font-weight: 700;
     }
+}
+
+#warning {
+    text-align: center;
+    margin-top: 300px;
+    margin-bottom: 300px;
 }
 
 span {

@@ -1,8 +1,6 @@
 const express = require('express');
 const app = express();
-const path = require('path'); 
-const helmet = require('helmet'); //
-const fs = require('fs');
+const helmet = require('helmet');
 const sequelize = require('./utils/database');
 const userRoutes = require('./routes/user');
 const commentRoutes = require('./routes/comment');
@@ -17,7 +15,6 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     next();
 });
-//si les images n'appraissent pas, mettre * pr les headers à la place de la longue liste
 
 try {
     sequelize.authenticate()
@@ -37,8 +34,6 @@ try {
     console.error('Impossible de se connecter, erreur suivante: ', error);
 }
 
-app.use('/images', express.static(path.join(__dirname, 'images')));
-app.use(express.static('images'));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(helmet());
@@ -48,3 +43,5 @@ app.use('/api/post', GPostRoutes);
 app.use('/api/comment', commentRoutes);
 
 module.exports = app;
+
+//je peux rejoindre le forum meme si l'email que je donne dans login.vue ne correspond à aucun email enregistré dans la BDD (ex; syc, force: true)

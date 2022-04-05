@@ -35,7 +35,7 @@ const routes = [
     }
   },
   {
-    path: "/published/",
+    path: "/published",
     name: "Published",
     component: Published,
     meta: {
@@ -43,7 +43,7 @@ const routes = [
     }
   },
   {
-    path: "/posted/",
+    path: "/posted",
     name: "Posted",
     component: Posted,
     meta: {
