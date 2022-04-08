@@ -43,7 +43,7 @@ exports.createComment = (req, res) => {
     }
 ;
 
-exports.deleteComment = (req, res) => {
+/*exports.deleteComment = (req, res) => {
     try {
         const emailCryptoJs = cryptojs.HmacSHA256(req.params.user_email, process.env.EMAIL_PROTECTED).toString();
         User.findOne({ where: {user_email: emailCryptoJs}, raw: true })
@@ -62,16 +62,25 @@ exports.deleteComment = (req, res) => {
     } catch {
         return res.status(500).json({ error })
     }
-    
-    //action prévue uniquement pour les admin
+};*/
 
-    //vérifier si user-admin: true (if)
-        //try
-
-        //catch
-
-    //si user-admin: false (else if) rejeter car pas authorisé
-
-    //(else) error
-
+exports.deleteComments = (req, res) => {
+    try {
+        const emailCryptoJs = cryptojs.HmacSHA256(req.params.user_email, process.env.EMAIL_PROTECTED).toString();
+        User.findOne({ where: {user_email: emailCryptoJs}, raw: true })
+        .then((User) => {
+            if (User.user_admin === true || User.user_admin === 1) {
+                Comment.destroy({ where: {related_postId: req.params.Gpost_id}, raw: true })
+                .then(() => res.status(200).json({ message: 'Les commentaires ont été supprimés !'}))
+                .catch(error => res.status(400).json({ error }));
+            } else if (User.user_admin === false || User.user_admin === 0) {
+                res.status(401).json ({ error: 'La requête n\'est pas authorisée aux utilisateurs ne disposant pas de privilèges administrateurs.'})
+            } else {
+                res.status(400).json({ error })
+            }
+        })
+        .catch(error => res.status(400).json({ error }));
+    } catch {
+        return res.status(500).json({ error })
+    }
 };

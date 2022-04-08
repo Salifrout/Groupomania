@@ -36,11 +36,11 @@ exports.signup = (req, res) => {
 exports.login = (req, res) => {
   const emailCryptoJs = cryptojs.HmacSHA256(req.body.user_email, process.env.EMAIL_PROTECTED).toString();
     User.findOne({/* user_email: emailCryptoJs */ where: {user_email: emailCryptoJs}, raw: true})
-      .then(user => {
-        if (!user) {
+      .then(User => {
+        if (!User) {
           return res.status(401).json({ error });
         }
-        bcrypt.compare(req.body.user_password, user.user_password)
+        bcrypt.compare(req.body.user_password, User.user_password)
           .then(valid => {
             if (!valid) {
               return res.status(403).json({ error });
@@ -50,7 +50,7 @@ exports.login = (req, res) => {
               token: jwt.sign(
                 { userId: User.user_id },
                 process.env.SECRET_KEY,
-                { expiresIn: '24h' }
+                { expiresIn: '24h' } 
               )
             });
           })

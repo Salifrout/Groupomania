@@ -43,5 +43,6 @@ app.use('/api/post', GPostRoutes);
 app.use('/api/comment', commentRoutes);
 
 module.exports = app;
+//abandonner les suppressions de message individuels, faire que le modo puisse supprimer tout le post, ou juste tous les commentaires du post
 
 //je peux rejoindre le forum meme si l'email que je donne dans login.vue ne correspond à aucun email enregistré dans la BDD (ex; syc, force: true)

@@ -76,6 +76,7 @@ sessionStorage.clear();
         }*/
 
        fetch ("http://localhost:3000/api/user/login", Connecting)
+        .then((result) => console.log(result))
         .then(sessionStorage.setItem('Authentification', this.email))
         .then(this.$router.push({ name: 'Published' }))
         /*.then(sessionStorage.setItem('Authentification', this.email))

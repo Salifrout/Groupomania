@@ -19,7 +19,7 @@
             </div>    
         </div>     
     
-        <img src="logo.jpg">
+        <img src="../../public/logo.jpg">
 
         <div id="profilTools">
             <input type="submit" value="Supprimer mon compte" class="submit" @click.stop="delete">

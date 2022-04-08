@@ -92,8 +92,9 @@ export default {
         margin-bottom: 5px;
         &Block {
             display: inline-block;
-            width: 100%;
+            width: 90%;
             text-align: justify;
+            word-break: break-word;
         }
     }
     &Author {

@@ -2,6 +2,7 @@ const sequelize = require("../utils/database");
 const cryptojs = require('crypto-js');
 const Gpost = require('../models/groupomania-post');
 const User = require ('../models/user');
+const Comment = require('../models/comment');
 
 /*exports.getAllPosts = (req, res) => {
     const MySQL_request = "SELECT * FROM `gposts` ORDER BY `Gpost_date` DESC;";
@@ -82,3 +83,41 @@ if user_admin = true pour  delete les commentaires */ //modify et delete !
 /*exports.deletePost = (req, res) => {
     //supprimer le post et son image et ses commentaires dont related_postId = Gpost_Id
 };*/
+
+exports.deletePost = (req, res) => {
+try {
+        const emailCryptoJs = cryptojs.HmacSHA256(req.params.user_email, process.env.EMAIL_PROTECTED).toString();
+        User.findOne({ where: {user_email: emailCryptoJs}, raw: true })
+        .then((User) => {
+            if (User.user_admin === true || User.user_admin === 1) {
+                Comment.destroy({ where: {related_postId: req.params.Gpost_id}, raw: true })
+                .then(() => Gpost.destroy({ where: {Gpost_id: req.params.Gpost_id}, raw: true }))
+                .then(() => res.status(200).json({ message: 'Le post et ses commentaires ont été supprimés !'}))
+                .catch(error => res.status(400).json({ error }));
+            } else if (User.user_admin === false || User.user_admin === 0) {
+                res.status(401).json ({ error: 'La requête n\'est pas authorisée aux utilisateurs ne disposant pas de privilèges administrateurs.'})
+            } else {
+                res.status(400).json({ error })
+            }
+        })
+        .catch(error => res.status(400).json({ error }));
+    } catch {
+        return res.status(500).json({ error })
+    }
+};
+
+ //PB : AUTH qui ne fonctionne pas forcément + connexion au site alors que mauvais email rentré !
+ //VERIFIER SI TT CE QUE DEMANDER DANS LE PROJET EST DEDANS ET SE PREPARERA JUSTIFIER LES CHOIX §
+ //supprimer les comptes ne fonctionne pas !
+
+ /*
+ -tester si change bien selon type d'écran MOI MEME
+ - nettoyer le code back et front avec tout ce qui est inutile à supprimer MOI MEME
+ -vérifier si exigences du projet réalisés CHECK
+ -créer un compte avec droit admin et faire tester suppression de comm et de post CHECK
+ - faire que suppression compte fonctionne ESSAYER MOI MEME
+ -vérifier si auth fonctionne DEMANDER FORUM
+ -retourner à openclasssrooms CHECK
+ -demander à Loic pourquoi .then fait suivre sessionstorage et changer vers forum alors que normalement catch du controller du back devrait s'appliquer DEAMNDE FORUM
+ -demander si toute fonctionnalité du projet sont faites à Loic CHECK
+ */

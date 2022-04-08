@@ -31,7 +31,7 @@
         <div id="backForum">
             <router-link :to="{ name: 'Published' }">Je retourne sur le forum !</router-link>
         </div>    
-        <input type="submit" value="Supprimer" class="submit">
+        <input type="submit" value="Supprimer" class="submit" @click="supressPost">
     </div>
 
     <div id="postComment">
@@ -39,30 +39,32 @@
         <input type="submit" value="Valider mon commentaire" id="validateComment1" @click="postComment">
     </div>
 
-    <div id="postedComment" v-if="Comments.length > 0" v-for="(Comment, key) in Comments" :key="key">
+    <div class="postedComment" v-if="Comments.length > 0" v-for="(Comment, key) in Comments" :key="key">
 
-        <div id="postedCommentX" class="intro_input" autofocus>
-            <div id="postedCommentX_border">
+        <div class="postedCommentX intro_input" autofocus>
+            <div class="postedCommentX_border">
                <p> {{ Comment.comment_text }} </p> 
             </div>            
         </div>
 
-        <div id="postedCommentXdisplay">
-            <div id="postedCommentXAuthor">
-                <p id="postedCommentXInfosAuthor">Publié par:     
-                    <span id="postedCommentXInfosFirstname"> {{ Comment.comment_firstname }} </span>
-                    <span id="postedCommentXInfosLastname"> {{ Comment.comment_lastname }} </span>
+        <div class="postedCommentXdisplay">
+            <div class="postedCommentXAuthor">
+                <p class="postedCommentXInfosAuthor">Publié par:     
+                    <span class="postedCommentXInfosFirstname"> {{ Comment.comment_firstname }} </span>
+                    <span class="postedCommentXInfosLastname"> {{ Comment.comment_lastname }} </span>
                 </p>
             </div>
-            <p id="postedCommentXDate">Enregistré le: 
-                <span id="postedCommentXInfosDate"> {{ Comment.comment_date }} </span>
+            <p class="postedCommentXDate">Enregistré le: 
+                <span class="postedCommentXInfosDate"> {{ Comment.comment_date }} </span>
             </p>
         </div>
 
-        <div id="commentTrash">
-            <img src="../assets/Comment_trash.png" alt="modérer le commentaire" @click="deleteComment">
-        </div>
 
+
+    </div>
+
+    <div class="commentTrash">
+        <img src="../assets/Comment_trash.png" :title="warning_trash" v-if="Comments.length > 0" alt="modérer le commentaire" @click="deleteComments">
     </div>
 
 </div>
@@ -84,7 +86,8 @@ export default {
         return {
             Posted: [],
             Comments: [],
-            OneComment: ''   
+            OneComment: '',
+            warning_trash: "Vous pouvez choisir de supprimer les commentaires de ce post si vous disposez de privilèges adminsitrateurs. Vous pouvez prendre connaissance de vos privilèges en consultant votre page de profil !"   
         }
     },
     created() {
@@ -102,6 +105,26 @@ export default {
         .then((json) => {this.Comments = json})
         .catch(error => console.log('error', error));
     },
+    /*mounted() {
+        const user_email = sessionStorage.getItem('Authentification');
+        const theComment = this.$refs.commentary;
+        const theImage = this.$refs.images;
+        const requestOptions = { method: 'DELETE', redirect: 'follow' };
+        console.log(theImage + 'test 1');
+
+        for (let I = 0; I < theComment.length; I++) {
+            console.log('bonjour !');
+            theImage[I].addEventListener('click', function() {
+                const comment_id = this.Comments[I].comment_id;
+
+
+                fetch("http://localhost:3000/api/comment/" + user_email + "/" + comment_id, requestOptions)
+                .then(response => response.text())
+                .then(result => console.log(result))
+                .catch(error => console.log('error', error));
+            })
+        }
+    },*/
     methods: {
         postComment() {
             const UrlOfPage = location;
@@ -126,9 +149,53 @@ export default {
             .then(() => location.reload())
             .catch(error => console.log( error ));
         },
-        deleteComment() {
+        supressPost() {
+            const user_email = sessionStorage.getItem('Authentification');
+            const UrlOfPage = location;
+            const Url = new URL(UrlOfPage);
+            const thePost = Url.searchParams.get("id"); 
+            const requestOptions = { method: 'DELETE', redirect: 'follow' };
 
+            fetch("http://localhost:3000/api/post/" + user_email + "/" + thePost, requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .then(this.$router.push({ name: 'Published' }))
+            .catch(error => console.log('error', error));
+        },
+        deleteComments() {
+            const user_email = sessionStorage.getItem('Authentification');
+            const UrlOfPage = location;
+            const Url = new URL(UrlOfPage);
+            const thePost = Url.searchParams.get("id"); 
+            const requestOptions = { method: 'DELETE', redirect: 'follow' };
+
+            fetch("http://localhost:3000/api/comment/" + user_email + "/" + thePost, requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .then(() => location.reload())
+            .catch(error => console.log('error', error));
         }
+        //TESTER LES DEUX FONCTIONS SUPPRIMER LES COMMS ET SUPPRIMER LE POST AVEC UN USER AVEC DROITS ADMIN + SI CA FONCTIONNE METTRE A L1 RELOAD ET A LAUTRE RETOUR FORUM ET ALERT LE POST A ETE SUPPRIME !!!
+        /*,
+        deleteComment() {
+            const id = this.$ref[`comment-${Comment.comment_id}`][0].dataset.txt;
+            console.log('element', id);
+            const user_email = sessionStorage.getItem('Authentification');
+            const comment_id = this.Comments.comment_id;
+            console.log(Comment);
+            console.log(this.Comments.find(Comment => Comment.comment_id === this.Comments.comment_id));
+            const requestOptions = {
+                method: 'DELETE',
+                redirect: 'follow'
+            };
+
+            fetch("http://localhost:3000/api/comment/" + user_email + "/" + comment_id, requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
+
+            //essayer la méthode d'Ognimelo sur l'autre ordi sinon demander sur le forum d'openclassrooms
+        }*/
     }
 }
 </script>
@@ -165,8 +232,9 @@ export default {
         margin-bottom: 5px;
         &Block {
             display: inline-block;
-            width: 100%;
+            width: 90%;
             text-align: justify;
+            word-break: break-word;
         }
     }
     &Author {
@@ -229,7 +297,7 @@ export default {
     margin: 8px;
 }
 
-#postedComment {
+.postedComment {
     margin-top: 0;
     border: 4px solid greenyellow;
     &X {
@@ -269,11 +337,11 @@ export default {
     } 
 }
 
-#commentTrash {
-    width: 5%;
+.commentTrash {
+    width: 8%;
     position: relative;
-    bottom: 90px;
-    left: 93%;
+    bottom: -10px;
+    left: 46%;
     img {
         width: 100%;
     }
