@@ -19,3 +19,5 @@ module.exports = (req, res, next) => {
     });
   }
 };
+
+//lire le reste cours openclassrooms pour bien comprendre token + essayer try et catch dans login pour protection des routes après avoir supprimé auth et voir si protection marche + faire un sync force true après avoir restauré auth sur toutes les routes puis voir si fonction auth marchent ou pas

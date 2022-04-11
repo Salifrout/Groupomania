@@ -65,10 +65,15 @@ export default {
             .catch(error => console.log('error', error));
         },
         delete() {
-            fetch("http:localhost:3000/api/user/delete/" + sessionStorage.getItem('Authentification'))
-            .then
+            const user_email = sessionStorage.getItem('Authentification');
+            const requestOptions = { method: 'DELETE', redirect: 'follow' };
 
-            sessionStorage.clear()
+            fetch("http:localhost:3000/api/user/" + user_email, requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .then(sessionStorage.clear())
+            .then(this.$router.push({ name: 'Login' }))
+            .catch(error => console.log('error', error));
         }
     }
 }

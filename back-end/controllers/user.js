@@ -34,24 +34,25 @@ exports.signup = (req, res) => {
 };
 
 exports.login = (req, res) => {
+  //essayer try et catch
   const emailCryptoJs = cryptojs.HmacSHA256(req.body.user_email, process.env.EMAIL_PROTECTED).toString();
-    User.findOne({/* user_email: emailCryptoJs */ where: {user_email: emailCryptoJs}, raw: true})
+    User.findOne({ where: {user_email: emailCryptoJs}, raw: true })
       .then(User => {
-        if (!User) {
+        /*if (!User) {
           return res.status(401).json({ error });
-        }
+        }*/
         bcrypt.compare(req.body.user_password, User.user_password)
           .then(valid => {
             if (!valid) {
               return res.status(403).json({ error });
             }
             res.status(204).json({
-              userId: User.user_id,
-              token: jwt.sign(
+              /*userId: User.user_id,*/message: "Vous êtes authentifié avec: " + 
+              {token: jwt.sign(
                 { userId: User.user_id },
                 process.env.SECRET_KEY,
-                { expiresIn: '24h' } 
-              )
+                { expiresIn: '4h' } 
+              )}
             });
           })
           .catch(error => res.status(500).json({ error }));
@@ -73,36 +74,16 @@ exports.accessUserProfile = (req,res) => {
     .catch(error => res.status(401).json({ error }));
 };
 
-/*exports.updateUser = (req, res) => {
-  const newUser = { ...req.body };
-    User.updateOne({ user_id: req.params.id }, { ...newUser, user_id: req.params.id })
-      .then(() => res.status(200).json({ message: 'Profil correctement modifié !'}))
-      .catch(error => res.status(400).json({ error }));
-};*/
-
 exports.deleteAccount = (req, res) => {
-  /*const emailCryptoJs = cryptojs.HmacSHA256(req.params.user_email, process.env.EMAIL_PROTECTED).toString();
-  User.findOne({ where: {user_email: emailCryptoJs}, raw: true })*/
   try {
     const emailCryptoJs = cryptojs.HmacSHA256(req.params.user_email, process.env.EMAIL_PROTECTED).toString();
-    const MySQL_request = "DELETE FROM `users` WHERE `user_email` = '" + emailCryptoJs + ";'";
-    sequelize.query(MySQL_request, (err, result) => {
-      if (!user) {
-        return res.status(401).json({ error });
-      }
-      res.clearCookie('jwt');
-      res.status(200).json('Utilisateur supprimé !')
-    })
-    /*User.deleteOne({ where: {user_email: emailCryptoJs}, raw: true })
-      .then(user => {if (!user) { return res.status(401).json({ error}); }
-        res.status(200).json({ message: 'Utilisateur supprimé !'}) })
-      .then(() => res.status(200).json({ message: 'Utilisateur supprimé !'}))
-      .then(res.clearCookie('jwt'))
-      .then(res.status(200).json('Déconnecté !'))
-      .catch(error => res.status(400).json({ error }));*/
+    User.destroy({ where:{user_email: emailCryptoJs}, raw: true})
+    .then(() => res.status(200).json({ message: 'Le compte utilisateur a été supprimé !'}))
+    .then(() => res.clearCookie('jwt')) 
+    .catch(error => res.status(400).json({ error }));
   } catch {
-    res.status(500).json(/*'Une erreur est survenue et empêche la suppression du compte.'*/ { error });
+    res.status(500).json({ error })
   }
 };
 
-//faire un sessionStorage.clear() pour logout et delete
+//faire un sessionStorage.clear() pour logout et delete et rediriger vers page de connexion (login)

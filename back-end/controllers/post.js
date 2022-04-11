@@ -110,14 +110,11 @@ try {
  //VERIFIER SI TT CE QUE DEMANDER DANS LE PROJET EST DEDANS ET SE PREPARERA JUSTIFIER LES CHOIX §
  //supprimer les comptes ne fonctionne pas !
 
- /*
- -tester si change bien selon type d'écran MOI MEME
- - nettoyer le code back et front avec tout ce qui est inutile à supprimer MOI MEME
- -vérifier si exigences du projet réalisés CHECK
- -créer un compte avec droit admin et faire tester suppression de comm et de post CHECK
- - faire que suppression compte fonctionne ESSAYER MOI MEME
+ /* 
+ - faire que suppression compte fonctionne ___________
  -vérifier si auth fonctionne DEMANDER FORUM
- -retourner à openclasssrooms CHECK
- -demander à Loic pourquoi .then fait suivre sessionstorage et changer vers forum alors que normalement catch du controller du back devrait s'appliquer DEAMNDE FORUM
- -demander si toute fonctionnalité du projet sont faites à Loic CHECK
+ -pourquoi .then fait suivre sessionstorage et changer vers forum alors que normalement catch du controller du back devrait s'appliquer DEAMNDE FORUM
+ -toute fonctionnalité du projet sont faites à Loic CHECK
  */
+
+//je peux rejoindre le forum meme si l'email que je donne dans login.vue ne correspond à aucun email enregistré dans la BDD (ex; syc, force: true)

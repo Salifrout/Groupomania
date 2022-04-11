@@ -35,17 +35,13 @@ export default {
       // écrire la fonction => if(email et password vides...) + requete fetch + renvoyer vers page du forum + vérifier dans cours vuejs 3 comment empecher accès a certains composants si user n'a pas accès
       //auth sur toutes les routes exceptées inscription et connexion côté back
       if (this.email.length > 1 || this.password.length > 1) {
-        const BODY = {
-          'user_email' : this.email,
-          'user_password' : this.password
-        };
         const Connecting = {
           method: 'post',
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify(BODY),
+          body: JSON.stringify({'user_email' : this.email, 'user_password' : this.password}),
           /*redirect: 'follow'*/
         };
 

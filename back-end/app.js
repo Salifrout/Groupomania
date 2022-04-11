@@ -8,10 +8,8 @@ const GPostRoutes = require('./routes/post');
 require('dotenv').config();
 
 app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", '*');
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Content-Encoding, Authorization');
-    /*res.setHeader('Access-Control-Allow-Headers', '*');*/
-    /*res.setHeader('Access-Control-Allow-Credentials', 'true');*/
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     next();
 });
@@ -43,6 +41,3 @@ app.use('/api/post', GPostRoutes);
 app.use('/api/comment', commentRoutes);
 
 module.exports = app;
-//abandonner les suppressions de message individuels, faire que le modo puisse supprimer tout le post, ou juste tous les commentaires du post
-
-//je peux rejoindre le forum meme si l'email que je donne dans login.vue ne correspond à aucun email enregistré dans la BDD (ex; syc, force: true)
