@@ -10,11 +10,12 @@
           <li>
             <router-link :to="{ name: 'Profile' }">Mon profil</router-link>
           </li>
-          <br />
+          <li>
+            <router-link :to="{ name: 'Rules' }">Réglement</router-link>
+          </li>
           <li>
             <router-link :to="{ name: 'Published' }">Forum</router-link>
           </li>
-          <br />
           <li>
             <router-link :to="{ name: 'Publish' }">Publier</router-link>
           </li>
@@ -50,7 +51,7 @@ header {
     background-color: #ffd7d7;
     width: 30%;
     nav {
-      margin-top: -15px;
+      margin-top: -10px;
     }
     ul {
       padding: 10px;

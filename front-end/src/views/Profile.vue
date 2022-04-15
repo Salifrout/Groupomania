@@ -22,8 +22,8 @@
         <img src="../../public/logo.jpg">
 
         <div id="profilTools">
-            <input type="submit" value="Supprimer mon compte" class="submit" @click.stop="delete">
-            <input type="submit" value="Me déconnecter" class="submit" @click.stop="disconnect">
+                <input type="submit" value="Supprimer mon compte" class="submit" @click="toDelete">
+                <input type="submit" value="Me déconnecter" class="submit" @click="disconnect">
         </div>
     </div>
 
@@ -46,14 +46,31 @@ export default {
         }
     },
     created() {
-        fetch("http://localhost:3000/api/user/access/" + sessionStorage.getItem('Authentification'))
+        const token = sessionStorage.getItem('Authorization').split(':')[2];
+        const adToken = token.length - 2;
+        const Authing = token.slice(1, adToken);
+        const myHeaders = new Headers();
+        myHeaders.append('Authorization', Authing);
+        const requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+
+        fetch("http://localhost:3000/api/user/access/" + sessionStorage.getItem('Authentification'), requestOptions)
         .then((response) => response.json())
         .then((json) => {this.user = json})
     },
     methods : {
         disconnect() {
+            const token = sessionStorage.getItem('Authorization').split(':')[2];
+            const adToken = token.length - 2;
+            const Authing = token.slice(1, adToken);
+            const myHeaders = new Headers();
+            myHeaders.append('Authorization', Authing);
             const toQuit = {
                 method: 'GET',
+                headers: myHeaders,
                 redirect: 'follow'
             };
 
@@ -64,11 +81,16 @@ export default {
             .then(this.$router.push({ name: 'Login' }))
             .catch(error => console.log('error', error));
         },
-        delete() {
+        toDelete() {
             const user_email = sessionStorage.getItem('Authentification');
-            const requestOptions = { method: 'DELETE', redirect: 'follow' };
+            const token = sessionStorage.getItem('Authorization').split(':')[2];
+            const adToken = token.length - 2;
+            const Authing = token.slice(1, adToken);
+            const myHeaders = new Headers();
+            myHeaders.append('Authorization', Authing);
+            const requestOptions = { method: 'DELETE', headers: myHeaders, redirect: 'follow' };
 
-            fetch("http:localhost:3000/api/user/" + user_email, requestOptions)
+            fetch("http://localhost:3000/api/user/" + user_email, requestOptions)
             .then(response => response.text())
             .then(result => console.log(result))
             .then(sessionStorage.clear())

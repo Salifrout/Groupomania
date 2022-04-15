@@ -3,7 +3,7 @@ require('dotenv').config();
 
 module.exports = (req, res, next) => {
   try {
-    const token = req.headers.authorization.split(' ')[1];
+    const token = req.headers.authorization;
     const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
     const userId = decodedToken.userId;
     req.auth = { userId };  
@@ -19,5 +19,3 @@ module.exports = (req, res, next) => {
     });
   }
 };
-
-//lire le reste cours openclassrooms pour bien comprendre token + essayer try et catch dans login pour protection des routes après avoir supprimé auth et voir si protection marche + faire un sync force true après avoir restauré auth sur toutes les routes puis voir si fonction auth marchent ou pas

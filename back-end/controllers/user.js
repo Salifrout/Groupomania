@@ -33,26 +33,26 @@ exports.signup = (req, res) => {
   }
 };
 
-exports.login = (req, res) => {
-  //essayer try et catch
+exports.login = (req, res, next) => {
   const emailCryptoJs = cryptojs.HmacSHA256(req.body.user_email, process.env.EMAIL_PROTECTED).toString();
     User.findOne({ where: {user_email: emailCryptoJs}, raw: true })
       .then(User => {
-        /*if (!User) {
+        if (!User) {
           return res.status(401).json({ error });
-        }*/
+        }
         bcrypt.compare(req.body.user_password, User.user_password)
           .then(valid => {
             if (!valid) {
               return res.status(403).json({ error });
             }
-            res.status(204).json({
-              /*userId: User.user_id,*/message: "Vous êtes authentifié avec: " + 
-              {token: jwt.sign(
+            const TEST = jwt.sign(
                 { userId: User.user_id },
                 process.env.SECRET_KEY,
                 { expiresIn: '4h' } 
-              )}
+              );
+            res.status(200).json({
+              userId: User.user_id,
+              token: TEST
             });
           })
           .catch(error => res.status(500).json({ error }));
@@ -85,5 +85,3 @@ exports.deleteAccount = (req, res) => {
     res.status(500).json({ error })
   }
 };
-
-//faire un sessionStorage.clear() pour logout et delete et rediriger vers page de connexion (login)

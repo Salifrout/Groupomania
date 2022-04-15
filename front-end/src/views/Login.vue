@@ -30,6 +30,9 @@ export default {
       password: '',
     }
   },
+  created() {
+    sessionStorage.clear();
+  },
   methods: {
     async toConnect() {
       // écrire la fonction => if(email et password vides...) + requete fetch + renvoyer vers page du forum + vérifier dans cours vuejs 3 comment empecher accès a certains composants si user n'a pas accès
@@ -72,7 +75,8 @@ sessionStorage.clear();
         }*/
 
        fetch ("http://localhost:3000/api/user/login", Connecting)
-        .then((result) => console.log(result))
+        .then(response => response.text())
+        .then(result => sessionStorage.setItem('Authorization', result))
         .then(sessionStorage.setItem('Authentification', this.email))
         .then(this.$router.push({ name: 'Published' }))
         /*.then(sessionStorage.setItem('Authentification', this.email))

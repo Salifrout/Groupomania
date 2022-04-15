@@ -25,7 +25,7 @@
                     </p>
                 </div>
                 <p class="postDate">Enregistré le: 
-                <span class="postInfosDate"> {{ Fors.Gpost_date }} </span>
+                <span class="postInfosDate"> {{ Fors.Gpost_date.toLocaleString().slice(0, -14) }} </span>
                 </p>
             </div>
 
@@ -51,10 +51,25 @@ export default {
         }
     },
     created() {
-        fetch("http://localhost:3000/api/post")
+        /*function getForum() {*/
+        const token = sessionStorage.getItem('Authorization').split(':')[2];
+        const adToken = token.length - 2;
+        const Authing = token.slice(1, adToken);
+        const myHeaders = new Headers();
+        myHeaders.append('Authorization', Authing);
+        const requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+        
+        fetch("http://localhost:3000/api/post", requestOptions)
         .then((response) => response.json())
         .then((json) => {this.Forum = json})
         .catch(error => console.log('error', error));
+        /*};*/
+
+        /*setTimeout(getForum, 2500);*/
     }
 }
 </script>

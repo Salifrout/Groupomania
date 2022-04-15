@@ -48,11 +48,15 @@ export default {
             if (this.title.length > 2 && this.content.length > 5) {
                 const user_email = sessionStorage.getItem('Authentification');
                 const BODY = { 'Gpost_title': this.title, 'Gpost_text': this.content };
+                const token = sessionStorage.getItem('Authorization').split(':')[2];
+                const adToken = token.length - 2;
+                const Authing = token.slice(1, adToken);
                 const newPost = {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Authorization': Authing
                     },
                     body: JSON.stringify(BODY),
                     redirect: 'follow'
@@ -121,9 +125,6 @@ export default {
         margin: 4px;
         background-color: #fff;
         padding: 4px;
-        a {
-            color: blue;
-        }
     }
     .submit {
         background-color: black;

@@ -106,15 +106,4 @@ try {
     }
 };
 
- //PB : AUTH qui ne fonctionne pas forcément + connexion au site alors que mauvais email rentré !
- //VERIFIER SI TT CE QUE DEMANDER DANS LE PROJET EST DEDANS ET SE PREPARERA JUSTIFIER LES CHOIX §
- //supprimer les comptes ne fonctionne pas !
-
- /* 
- - faire que suppression compte fonctionne ___________
- -vérifier si auth fonctionne DEMANDER FORUM
- -pourquoi .then fait suivre sessionstorage et changer vers forum alors que normalement catch du controller du back devrait s'appliquer DEAMNDE FORUM
- -toute fonctionnalité du projet sont faites à Loic CHECK
- */
-
 //je peux rejoindre le forum meme si l'email que je donne dans login.vue ne correspond à aucun email enregistré dans la BDD (ex; syc, force: true)

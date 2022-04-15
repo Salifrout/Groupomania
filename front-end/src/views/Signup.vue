@@ -48,10 +48,10 @@ export default {
       admin : false
     }
   },
+  created() {
+    sessionStorage.clear();
+  },
   methods: {
-//envoyer la requête + alert compte créé
-//effacer les données dans le formulaire une fois le compte créé + envisager le e.prevenDefault + alert('le compte a été créé')
-
     sendForm() {
       if (this.firstname && this.lastname && this.email && this.password.length > 12 && this.password.length < 30) {
         const BODY = {

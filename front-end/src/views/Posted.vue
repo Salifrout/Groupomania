@@ -23,7 +23,7 @@
             </p>
         </div>
         <p id="postDate">Enregistré le: 
-            <span id="postInfosDate"> {{ Posted.Gpost_date }} </span>
+            <span id="postInfosDate"> {{ Posted.Gpost_date.toLocaleString().slice(0, -14) }} </span>
         </p>
     </div>
 
@@ -55,7 +55,7 @@
                 </p>
             </div>
             <p class="postedCommentXDate">Enregistré le: 
-                <span class="postedCommentXInfosDate"> {{ Comment.comment_date }} </span>
+                <span class="postedCommentXInfosDate"> {{ Comment.comment_date.toLocaleString().slice(0, -14) }} </span>
             </p>
         </div>
 
@@ -95,12 +95,24 @@ export default {
         const Url = new URL(UrlOfPage);
         const thePost = Url.searchParams.get("id");
 
-        fetch("http://localhost:3000/api/post/" + thePost)
+
+        const token = sessionStorage.getItem('Authorization').split(':')[2];
+        const adToken = token.length - 2;
+        const Authing = token.slice(1, adToken);
+        const myHeaders = new Headers();
+        myHeaders.append('Authorization', Authing);
+        const requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+
+        fetch("http://localhost:3000/api/post/" + thePost, requestOptions)
         .then((response) => response.json())
         .then((json) => {this.Posted = json})
         .catch(error => console.log('error', error));
 
-        fetch("http://localhost:3000/api/comment/" + thePost)
+        fetch("http://localhost:3000/api/comment/" + thePost, requestOptions)
         .then((response) => response.json())
         .then((json) => {this.Comments = json})
         .catch(error => console.log('error', error));
@@ -131,13 +143,16 @@ export default {
             const Url = new URL(UrlOfPage);
             const thePost = Url.searchParams.get("id");
             const user_email = sessionStorage.getItem('Authentification');
-
+            const token = sessionStorage.getItem('Authorization').split(':')[2];
+            const adToken = token.length - 2;
+            const Authing = token.slice(1, adToken);
             const BODY = { 'comment_text': this.OneComment, 'Gpost_id': thePost };
             const newPost = {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': Authing
                 },
                 body: JSON.stringify(BODY),
                 redirect: 'follow'
@@ -154,7 +169,13 @@ export default {
             const UrlOfPage = location;
             const Url = new URL(UrlOfPage);
             const thePost = Url.searchParams.get("id"); 
-            const requestOptions = { method: 'DELETE', redirect: 'follow' };
+            const token = sessionStorage.getItem('Authorization').split(':')[2];
+            const adToken = token.length - 2;
+            const Authing = token.slice(1, adToken);
+            const myHeaders = new Headers();
+            myHeaders.append('Authorization', Authing);
+
+            const requestOptions = { method: 'DELETE', headers: myHeaders, redirect: 'follow' };
 
             fetch("http://localhost:3000/api/post/" + user_email + "/" + thePost, requestOptions)
             .then(response => response.text())
@@ -166,8 +187,13 @@ export default {
             const user_email = sessionStorage.getItem('Authentification');
             const UrlOfPage = location;
             const Url = new URL(UrlOfPage);
-            const thePost = Url.searchParams.get("id"); 
-            const requestOptions = { method: 'DELETE', redirect: 'follow' };
+            const thePost = Url.searchParams.get("id");
+            const token = sessionStorage.getItem('Authorization').split(':')[2];
+            const adToken = token.length - 2;
+            const Authing = token.slice(1, adToken);
+            const myHeaders = new Headers();
+            myHeaders.append('Authorization', Authing);
+            const requestOptions = { method: 'DELETE', headers: myHeaders, redirect: 'follow' };
 
             fetch("http://localhost:3000/api/comment/" + user_email + "/" + thePost, requestOptions)
             .then(response => response.text())
@@ -271,9 +297,6 @@ export default {
         margin: 4px;
         background-color: #fff;
         padding: 4px;
-        a {
-            color: blue;
-        }
     }
     .submit {
         background-color: black;
