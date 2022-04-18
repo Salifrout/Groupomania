@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     async toConnect() {
-      if (this.email.length > 1 || this.password.length > 1) {
+      if (this.email.length > 1 && this.password.length > 1) {
         const Connecting = {
           method: 'post',
           headers: {
@@ -47,11 +47,11 @@ export default {
         };
 
         fetch ("http://localhost:3000/api/user/login", Connecting)
-        .then(response => response.text())
-        .then(result => sessionStorage.setItem('Authorization', result))
-        .then(sessionStorage.setItem('Authentification', this.email))
+        .then(function(response) { return response.json()})
+        .then(function(value) { if (value.token) {sessionStorage.setItem('Authorization', JSON.stringify(value)); /*sessionStorage.setItem('Authentification', this.email); console.log('Ca marche !'); this.$router.push({ name: 'Published' })*/}})
+        .then(function() { console.log('Ca marche tres bien !')})
         .then(this.$router.push({ name: 'Published' }))
-        .catch(error => console.log('error', error));
+        .catch(function(error) { console.log('Une erreur est survenue. Veuillez vérifier vos informations de connexion: ' + error)});
       } else {
         alert('Veuillez remplir les champs requis afin de pouvoir vous connecter.')
       }

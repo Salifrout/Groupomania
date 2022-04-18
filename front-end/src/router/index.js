@@ -75,7 +75,9 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.meta.requiresAuth && !sessionStorage.getItem('Authentification')) {
+  console.log(to.meta.requiresAuth);
+  console.log(sessionStorage.getItem('Authentification'));
+  if (to.meta.requiresAuth && (/*!sessionStorage.getItem('Authentification') ||*/ !sessionStorage.getItem('Authorization') || sessionStorage.getItem('Authorization') == undefined)) {
     next({name: "Login"});
   } else {
     next();

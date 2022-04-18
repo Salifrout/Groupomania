@@ -50,12 +50,16 @@ export default {
             Forum: {}
         }
     },
-    created() {
-        const token = sessionStorage.getItem('Authorization').split(':')[2];
+    mounted() {
+        //console.log partout dans /published
+        console.log('test GETITEM : ' + sessionStorage.getItem('Authorization'));
+        /*const token = sessionStorage.getItem('Authorization').split(':')[2];
         const adToken = token.length - 2;
-        const Authing = token.slice(1, adToken);
+        const Authing = token.slice(1, adToken);*/
+        const auth = JSON.parse(sessionStorage.getItem('Authorization'));
+        console.log(auth.token);
         const myHeaders = new Headers();
-        myHeaders.append('Authorization', Authing);
+        myHeaders.append('Authorization', auth.token);
         const requestOptions = {
             method: 'GET',
             headers: myHeaders,
