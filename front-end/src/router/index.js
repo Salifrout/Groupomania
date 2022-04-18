@@ -74,50 +74,12 @@ const router = createRouter({
   routes,
 });
 
-/*function toConnect() {
-  next({name:"Login"});
-};
-
 router.beforeEach((to, from, next) => {
-  const correctSession = new RegExp(/.{100,}/);
-  if (to.meta.requiresAuth && !sessionStorage.getItem('Authentification') && !correctSession.test(sessionStorage.getItem('Authorization'))) {
-    console.log('test 1');
-    next();
-  } else {
-    console.log('test 2');
+  if (to.meta.requiresAuth && !sessionStorage.getItem('Authentification')) {
     next({name: "Login"});
-  }
-});*/
-
-/*router.beforeEach((to, from, next)=>{
-  const correctSession = new RegExp(/.{100,}/);
-  if(to.meta.requiresAuth && !sessionStorage.getItem('Authentification')) { //ou bien !req.headers.authorisation
-    next({name:"Login"})
-    console.log('test 1 ' + sessionStorage.getItem('Authentification'))
-  } else if (to.meta.requiresAuth && (!sessionStorage.getItem('Authorization') || !correctSession.test(sessionStorage.getItem('Authorization')))) {
-    next({name: "Login"})
-    console.log('test 2')
-   } else if (to.meta.requiresAuth && !sessionStorage.getItem('Authorization')) {
-    console.log('bin bin ' + sessionStorage.getItem('Authorization'));
-  } else if (to.meta.requiresAuth && !correctSession.test(sessionStorage.getItem('Authorization'))) {
-   console.log('bo bo ' + correctSession.test(sessionStorage.getItem('Authorization')));
   } else {
-    console.log('test 3');
-    next()
+    next();
   }
-});*/
-
-/*router.beforeEach((to, from, next)=>{
-  if(to.meta.requiresAuth && sessionStorage.getItem('Authentification')) { //ou bien !req.headers.authorisation
-    /*console.log('123');
-    console.log(sessionStorage.getItem('Authentification') );
-    console.log(req.headers.authorization);
-    next()
-    sessionStorage.clear();
-  } else {
-    console.log("321");
-    next({name:"Login"})
-  }
-});*/
+});
 
 export default router;

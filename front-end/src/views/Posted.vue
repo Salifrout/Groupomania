@@ -115,26 +115,6 @@ export default {
         .then((json) => {this.Comments = json})
         .catch(error => console.log('error', error));
     },
-    /*mounted() {
-        const user_email = sessionStorage.getItem('Authentification');
-        const theComment = this.$refs.commentary;
-        const theImage = this.$refs.images;
-        const requestOptions = { method: 'DELETE', redirect: 'follow' };
-        console.log(theImage + 'test 1');
-
-        for (let I = 0; I < theComment.length; I++) {
-            console.log('bonjour !');
-            theImage[I].addEventListener('click', function() {
-                const comment_id = this.Comments[I].comment_id;
-
-
-                fetch("http://localhost:3000/api/comment/" + user_email + "/" + comment_id, requestOptions)
-                .then(response => response.text())
-                .then(result => console.log(result))
-                .catch(error => console.log('error', error));
-            })
-        }
-    },*/
     methods: {
         postComment() {
             const UrlOfPage = location;
@@ -199,27 +179,6 @@ export default {
             .then(() => location.reload())
             .catch(error => console.log('error', error));
         }
-        //TESTER LES DEUX FONCTIONS SUPPRIMER LES COMMS ET SUPPRIMER LE POST AVEC UN USER AVEC DROITS ADMIN + SI CA FONCTIONNE METTRE A L1 RELOAD ET A LAUTRE RETOUR FORUM ET ALERT LE POST A ETE SUPPRIME !!!
-        /*,
-        deleteComment() {
-            const id = this.$ref[`comment-${Comment.comment_id}`][0].dataset.txt;
-            console.log('element', id);
-            const user_email = sessionStorage.getItem('Authentification');
-            const comment_id = this.Comments.comment_id;
-            console.log(Comment);
-            console.log(this.Comments.find(Comment => Comment.comment_id === this.Comments.comment_id));
-            const requestOptions = {
-                method: 'DELETE',
-                redirect: 'follow'
-            };
-
-            fetch("http://localhost:3000/api/comment/" + user_email + "/" + comment_id, requestOptions)
-            .then(response => response.text())
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error));
-
-            //essayer la méthode d'Ognimelo sur l'autre ordi sinon demander sur le forum d'openclassrooms
-        }*/
     }
 }
 </script>
