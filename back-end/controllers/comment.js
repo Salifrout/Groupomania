@@ -1,6 +1,5 @@
 const Comment = require('../models/comment');
 const Gpost = require('../models/groupomania-post');
-const cryptojs = require('crypto-js');
 const User = require ('../models/user');
 
 exports.getAllRelatedComments = async (req, res) => {
@@ -14,8 +13,7 @@ exports.getAllRelatedComments = async (req, res) => {
 };
 
 exports.createComment = (req, res) => {
-    const emailCryptoJs = cryptojs.HmacSHA256(req.params.user_email, process.env.EMAIL_PROTECTED).toString();
-    User.findOne({ where: {user_email: emailCryptoJs}, raw: true })
+    User.findOne({ where: {user_id: req.params.user_id}, raw: true })
         .then((User) => {
             const firstname = User.user_firstname;
             const lastname = User.user_lastname;
@@ -23,7 +21,7 @@ exports.createComment = (req, res) => {
                 comment_text: req.body.comment_text,
                 comment_firstname: firstname,
                 comment_lastname: lastname,
-                related_userEmail: req.params.user_email,
+                related_userId: req.params.user_id,
                 related_postId: req.body.Gpost_id
             })
             comment.save()
@@ -36,8 +34,7 @@ exports.createComment = (req, res) => {
 
 exports.deleteComments = (req, res) => {
     try {
-        const emailCryptoJs = cryptojs.HmacSHA256(req.params.user_email, process.env.EMAIL_PROTECTED).toString();
-        User.findOne({ where: {user_email: emailCryptoJs}, raw: true })
+        User.findOne({ where: {user_id: req.params.user_id}, raw: true })
         .then((User) => {
             if (User.user_admin === true || User.user_admin === 1) {
                 Comment.destroy({ where: {related_postId: req.params.Gpost_id}, raw: true })

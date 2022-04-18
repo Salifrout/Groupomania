@@ -47,28 +47,24 @@ export default {
         }
     },
     created() {
-        const token = sessionStorage.getItem('Authorization').split(':')[2];
-        const adToken = token.length - 2;
-        const Authing = token.slice(1, adToken);
+        const auth = JSON.parse(sessionStorage.getItem('Authorization'));
         const myHeaders = new Headers();
-        myHeaders.append('Authorization', Authing);
+        myHeaders.append('Authorization', auth.token);
         const requestOptions = {
             method: 'GET',
             headers: myHeaders,
             redirect: 'follow'
         };
 
-        fetch("http://localhost:3000/api/user/access/" + sessionStorage.getItem('Authentification'), requestOptions)
+        fetch("http://localhost:3000/api/user/access/" + auth.userId, requestOptions)
         .then((response) => response.json())
         .then((json) => {this.user = json})
     },
     methods : {
         disconnect() {
-            const token = sessionStorage.getItem('Authorization').split(':')[2];
-            const adToken = token.length - 2;
-            const Authing = token.slice(1, adToken);
+            const auth = JSON.parse(sessionStorage.getItem('Authorization'));
             const myHeaders = new Headers();
-            myHeaders.append('Authorization', Authing);
+            myHeaders.append('Authorization', auth.token);
             const toQuit = {
                 method: 'GET',
                 headers: myHeaders,
@@ -83,15 +79,11 @@ export default {
             .catch(error => console.log('error', error));
         },
         toDelete() {
-            const user_email = sessionStorage.getItem('Authentification');
-            const token = sessionStorage.getItem('Authorization').split(':')[2];
-            const adToken = token.length - 2;
-            const Authing = token.slice(1, adToken);
             const myHeaders = new Headers();
-            myHeaders.append('Authorization', Authing);
+            myHeaders.append('Authorization', auth.token);
             const requestOptions = { method: 'DELETE', headers: myHeaders, redirect: 'follow' };
 
-            fetch("http://localhost:3000/api/user/" + user_email, requestOptions)
+            fetch("http://localhost:3000/api/user/" + auth.userId, requestOptions)
             .then(response => response.text())
             .then(result => console.log(result))
             .then(sessionStorage.clear())

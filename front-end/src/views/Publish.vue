@@ -46,23 +46,20 @@ export default {
     methods: {
         postToForum() {
             if (this.title.length > 2 && this.content.length > 5) {
-                const user_email = sessionStorage.getItem('Authentification');
+                const auth = JSON.parse(sessionStorage.getItem('Authorization'));
                 const BODY = { 'Gpost_title': this.title, 'Gpost_text': this.content };
-                const token = sessionStorage.getItem('Authorization').split(':')[2];
-                const adToken = token.length - 2;
-                const Authing = token.slice(1, adToken);
                 const newPost = {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json',
-                        'Authorization': Authing
+                        'Authorization': auth.token
                     },
                     body: JSON.stringify(BODY),
                     redirect: 'follow'
                 };
 
-                fetch("http://localhost:3000/api/post/" + user_email, newPost)
+                fetch("http://localhost:3000/api/post/" + auth.userId, newPost)
                 .then(response => response.text())
                 .then(result => console.log( result ))
                 .then(alert('Votre poste a été enregistré.'))

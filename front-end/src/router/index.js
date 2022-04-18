@@ -40,9 +40,9 @@ const routes = [
     path: "/published",
     name: "Published",
     component: Published,
-    /*meta: {
+    meta: {
       requiresAuth: true
-    }*/
+    }
   },
   {
     path: "/posted",
@@ -75,9 +75,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  console.log(to.meta.requiresAuth);
-  console.log(sessionStorage.getItem('Authentification'));
-  if (to.meta.requiresAuth && (/*!sessionStorage.getItem('Authentification') ||*/ !sessionStorage.getItem('Authorization') || sessionStorage.getItem('Authorization') == undefined)) {
+  if (to.meta.requiresAuth && (!sessionStorage.getItem('Authorization') || sessionStorage.getItem('Authorization') == undefined)) {
     next({name: "Login"});
   } else {
     next();

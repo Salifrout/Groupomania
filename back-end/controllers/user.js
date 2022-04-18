@@ -67,8 +67,7 @@ exports.logout = (req, res) => {
 };
 
 exports.accessUserProfile = (req,res) => {
-  const emailCryptoJs = cryptojs.HmacSHA256(req.params.user_email, process.env.EMAIL_PROTECTED).toString();
-  User.findOne({ where: {user_email: emailCryptoJs}, raw: true })
+  User.findOne({ where: {user_id: req.params.user_id}, raw: true })
     .then(user => { if (!user) { return res.status(401).json({ error }); }
       res.status(200).json(user)})
     .catch(error => res.status(401).json({ error }));
@@ -76,8 +75,7 @@ exports.accessUserProfile = (req,res) => {
 
 exports.deleteAccount = (req, res) => {
   try {
-    const emailCryptoJs = cryptojs.HmacSHA256(req.params.user_email, process.env.EMAIL_PROTECTED).toString();
-    User.destroy({ where:{user_email: emailCryptoJs}, raw: true})
+    User.destroy({ where:{user_id: req.params.user_id}, raw: true})
     .then(() => res.status(200).json({ message: 'Le compte utilisateur a été supprimé !'}))
     .then(() => res.clearCookie('jwt')) 
     .catch(error => res.status(400).json({ error }));

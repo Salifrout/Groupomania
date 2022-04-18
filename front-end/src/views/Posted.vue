@@ -93,12 +93,9 @@ export default {
         const Url = new URL(UrlOfPage);
         const thePost = Url.searchParams.get("id");
 
-
-        const token = sessionStorage.getItem('Authorization').split(':')[2];
-        const adToken = token.length - 2;
-        const Authing = token.slice(1, adToken);
+        const auth = JSON.parse(sessionStorage.getItem('Authorization'));
         const myHeaders = new Headers();
-        myHeaders.append('Authorization', Authing);
+        myHeaders.append('Authorization', auth.token);
         const requestOptions = {
             method: 'GET',
             headers: myHeaders,
@@ -120,60 +117,51 @@ export default {
             const UrlOfPage = location;
             const Url = new URL(UrlOfPage);
             const thePost = Url.searchParams.get("id");
-            const user_email = sessionStorage.getItem('Authentification');
-            const token = sessionStorage.getItem('Authorization').split(':')[2];
-            const adToken = token.length - 2;
-            const Authing = token.slice(1, adToken);
+            const auth = JSON.parse(sessionStorage.getItem('Authorization'));
             const BODY = { 'comment_text': this.OneComment, 'Gpost_id': thePost };
             const newPost = {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
-                    'Authorization': Authing
+                    'Authorization': auth.token
                 },
                 body: JSON.stringify(BODY),
                 redirect: 'follow'
             };
 
-            fetch("http://localhost:3000/api/comment/" + user_email, newPost)
+            fetch("http://localhost:3000/api/comment/" + auth.userId, newPost)
             .then(response => response.text())
             .then(result => console.log( result ))
             .then(() => location.reload())
             .catch(error => console.log( error ));
         },
         supressPost() {
-            const user_email = sessionStorage.getItem('Authentification');
             const UrlOfPage = location;
             const Url = new URL(UrlOfPage);
             const thePost = Url.searchParams.get("id"); 
-            const token = sessionStorage.getItem('Authorization').split(':')[2];
-            const adToken = token.length - 2;
-            const Authing = token.slice(1, adToken);
+            const auth = JSON.parse(sessionStorage.getItem('Authorization'));
             const myHeaders = new Headers();
-            myHeaders.append('Authorization', Authing);
+            myHeaders.append('Authorization', auth.token);
 
             const requestOptions = { method: 'DELETE', headers: myHeaders, redirect: 'follow' };
 
-            fetch("http://localhost:3000/api/post/" + user_email + "/" + thePost, requestOptions)
+            fetch("http://localhost:3000/api/post/" + auth.userId + "/" + thePost, requestOptions)
             .then(response => response.text())
             .then(result => console.log(result))
             .then(this.$router.push({ name: 'Published' }))
             .catch(error => console.log('error', error));
         },
         deleteComments() {
-            const user_email = sessionStorage.getItem('Authentification');
             const UrlOfPage = location;
             const Url = new URL(UrlOfPage);
             const thePost = Url.searchParams.get("id");
-            const token = sessionStorage.getItem('Authorization').split(':')[2];
-            const adToken = token.length - 2;
-            const Authing = token.slice(1, adToken);
+            const auth = JSON.parse(sessionStorage.getItem('Authorization'));
             const myHeaders = new Headers();
-            myHeaders.append('Authorization', Authing);
+            myHeaders.append('Authorization', auth.token);
             const requestOptions = { method: 'DELETE', headers: myHeaders, redirect: 'follow' };
 
-            fetch("http://localhost:3000/api/comment/" + user_email + "/" + thePost, requestOptions)
+            fetch("http://localhost:3000/api/comment/" + auth.userId + "/" + thePost, requestOptions)
             .then(response => response.text())
             .then(result => console.log(result))
             .then(() => location.reload())

@@ -48,8 +48,7 @@ export default {
 
         fetch ("http://localhost:3000/api/user/login", Connecting)
         .then(function(response) { return response.json()})
-        .then(function(value) { if (value.token) {sessionStorage.setItem('Authorization', JSON.stringify(value)); /*sessionStorage.setItem('Authentification', this.email); console.log('Ca marche !'); this.$router.push({ name: 'Published' })*/}})
-        .then(function() { console.log('Ca marche tres bien !')})
+        .then(function(value) { if (value.token) {sessionStorage.setItem('Authorization', JSON.stringify(value));}})
         .then(this.$router.push({ name: 'Published' }))
         .catch(function(error) { console.log('Une erreur est survenue. Veuillez vérifier vos informations de connexion: ' + error)});
       } else {

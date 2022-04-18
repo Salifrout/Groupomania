@@ -1,5 +1,4 @@
 const sequelize = require("../utils/database");
-const cryptojs = require('crypto-js');
 const Gpost = require('../models/groupomania-post');
 const User = require ('../models/user');
 const Comment = require('../models/comment');
@@ -14,16 +13,14 @@ exports.getAllPosts = async (req, res) => {
     return res.status(200).json(result);
 }
 
-exports.getOnePost = (req, res/*, next*/) => {
+exports.getOnePost = (req, res) => {
     Gpost.findOne({ where: {Gpost_id: req.params.id}, raw: true })
         .then(Gpost => res.status(200).json(Gpost))
-        /*.then(() => next())*/
         .catch(error => res.status(500).json({ error }));
 };
  
 exports.createPost = (req, res) => {
-    const emailCryptoJs = cryptojs.HmacSHA256(req.params.user_email, process.env.EMAIL_PROTECTED).toString();
-    User.findOne({ where: {user_email: emailCryptoJs}, raw: true })
+    User.findOne({ where: {user_id: req.params.user_id}, raw: true })
         .then((User) => {
             const firstname = User.user_firstname;
             const lastname = User.user_lastname;
@@ -44,8 +41,7 @@ exports.createPost = (req, res) => {
 
 exports.deletePost = (req, res) => {
 try {
-        const emailCryptoJs = cryptojs.HmacSHA256(req.params.user_email, process.env.EMAIL_PROTECTED).toString();
-        User.findOne({ where: {user_email: emailCryptoJs}, raw: true })
+        User.findOne({ where: {user_id: req.params.user_id}, raw: true })
         .then((User) => {
             if (User.user_admin === true || User.user_admin === 1) {
                 Comment.destroy({ where: {related_postId: req.params.Gpost_id}, raw: true })
