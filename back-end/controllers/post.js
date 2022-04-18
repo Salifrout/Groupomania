@@ -4,18 +4,6 @@ const Gpost = require('../models/groupomania-post');
 const User = require ('../models/user');
 const Comment = require('../models/comment');
 
-/*exports.getAllPosts = (req, res) => {
-    const MySQL_request = "SELECT * FROM `gposts` ORDER BY `Gpost_date` DESC;";
-    sequelize.query(MySQL_request, (err, result) => {
-        if (err) {
-            res.status(404).json({ err });
-            throw err;
-        }
-        res.status(200).json(result);
-    });
-    //rajouter les commentaires qui vont avec depuis le fichier comment
-};*/
-
 exports.getAllPosts = async (req, res) => {
     const result = await Gpost.findAll({
         order: [
@@ -32,14 +20,6 @@ exports.getOnePost = (req, res/*, next*/) => {
         /*.then(() => next())*/
         .catch(error => res.status(500).json({ error }));
 };
-
-/*exports.getOnePost = async (req, res) => {
-    const result = await Gpost.findOne({ where: {Gpost_id: req.params.Gpost_id}, raw: true });
-    if (!result) {
-        return res.status(404).json({ error: "Aucun poste du forum ne porte cet id !"})
-    }
-    return res.status(200).json(result);
-}*/
  
 exports.createPost = (req, res) => {
     const emailCryptoJs = cryptojs.HmacSHA256(req.params.user_email, process.env.EMAIL_PROTECTED).toString();
@@ -61,28 +41,6 @@ exports.createPost = (req, res) => {
         .catch(error => res.status(500).json({ error })); 
     }
 ;
-//identifier avec user.findbyID/findOne : user_id et const pour le définir et req.params
-//mysql request join first name et last name + join Gpost_id à user_id
-
-//create post : le related_postID = Gpost_id !
-
-/*exports.modifyPost = (req, res) => {
-    const GroupomaniaPost = req.file ?
-      {
-        ...JSON.parse(req.body), //req.body.sauce
-        Gpost_media: `${req.protocol}://${req.get('host')}/media/${req.file.filename}`
-      } : { ...req.body };
-      Gpost.updateOne({ Gpost_id: req.params.id }, { ...GroupomaniaPost, Gpost_id: req.params.id })
-        .then(() => res.status(200).json({ message: 'Post correctement modifié !'}))
-        .catch(error => res.status(400).json({ error }));
-};*/
-
-/*
-if user_admin = true pour  delete les commentaires */ //modify et delete !
-
-/*exports.deletePost = (req, res) => {
-    //supprimer le post et son image et ses commentaires dont related_postId = Gpost_Id
-};*/
 
 exports.deletePost = (req, res) => {
 try {
@@ -105,5 +63,3 @@ try {
         return res.status(500).json({ error })
     }
 };
-
-//je peux rejoindre le forum meme si l'email que je donne dans login.vue ne correspond à aucun email enregistré dans la BDD (ex; syc, force: true)

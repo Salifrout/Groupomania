@@ -47,7 +47,7 @@ export default {
     },
     data() {
         return {
-            Forum : {}
+            Forum: {}
         }
     },
     created() {
@@ -67,10 +67,42 @@ export default {
         .then((response) => response.json())
         .then((json) => {this.Forum = json})
         .catch(error => console.log('error', error));
-        /*};*/
 
-        /*setTimeout(getForum, 2500);*/
+        console.log(typeof sessionStorage.getItem('Authorization') + ': test 1');
+        //je peux me connecter à published et au reste meme si authorization n'est pas valide dans le sessionStorage + published ne charge pas la premiere fois lorsque je me connecte avec bon identifiant
+        /*setTimeout(location.reload(), 2500);*/
+    },
+    /*methods: {
+        getForum() {
+        const loadBar = document.getElementById("loadBar");
+        const token = sessionStorage.getItem('Authorization').split(':')[2];
+        const adToken = token.length - 2;
+        const Authing = token.slice(1, adToken);
+        const myHeaders = new Headers();
+        myHeaders.append('Authorization', Authing);
+        const requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+        
+        
+        fetch("http://localhost:3000/api/post", requestOptions)
+        .then((response) => response.json())
+        .then((json) => {this.Forum = json})
+        .catch(error => console.log('error', error));
+        
+        
+        
+        if (document.readyState === 'complete') {
+            console.log('haha');
+            setTimeout(getForum, 2500);
+        } else {
+            console.log('bb');
+            document.addEventListener('DOMContentLoaded', setTimeout(getForum, 2500));
+        };
     }
+    }*/
 }
 </script>
 

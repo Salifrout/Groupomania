@@ -7,6 +7,7 @@ import Published from "@/views/Published.vue";
 import Posted from "@/views/Posted.vue";
 import NotFound from "@/views/NotFound.vue";
 import Rules from "@/views/Rules.vue";
+import { nextTick } from "vue";
 
 const routes = [
   {
@@ -72,6 +73,21 @@ const router = createRouter({
   history: createWebHistory(),
   routes,
 });
+
+/*function toConnect() {
+  next({name:"Login"});
+};
+
+router.beforeEach((to, from, next) => {
+  const correctSession = new RegExp(/.{100,}/);
+  if (to.meta.requiresAuth && !sessionStorage.getItem('Authentification') && !correctSession.test(sessionStorage.getItem('Authorization'))) {
+    console.log('test 1');
+    next();
+  } else {
+    console.log('test 2');
+    next({name: "Login"});
+  }
+});*/
 
 /*router.beforeEach((to, from, next)=>{
   const correctSession = new RegExp(/.{100,}/);

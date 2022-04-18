@@ -1,7 +1,7 @@
 <template>
 <div>
    <Header />
-                                        <!--rajouter form dnas les fichiers où c'est oublié !!!-->
+                                    
     <div id="publishForum">
         <form method="post" action="javascript:void(0);">
             <div id="publishTitle">

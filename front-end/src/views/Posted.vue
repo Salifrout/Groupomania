@@ -2,72 +2,70 @@
 <div>
     <Header />
 
-      <div id="postForum">
-    <div id="postTitle">
-        <h2 id="postTitle_h2">
-            {{ Posted.Gpost_title }}
-        </h2>
-    </div>
+    <div id="postForum">
+        <div id="postTitle">
+            <h2 id="postTitle_h2">
+                {{ Posted.Gpost_title }}
+            </h2>
+        </div>
 
-    <div id="postText">
-        <p id="postTextBlock">
-            {{ Posted.Gpost_text }}
-        </p>
-    </div>
-
-    <div id="postInfos">
-        <div id="postAuthor">
-            <p id="postInfosAuthor">Publié par:     
-                <span id="postInfosFirstname"> {{ Posted.Gpost_firstNameAuthor }} </span>
-                <span id="postInfosLastname"> {{ Posted.Gpost_lastNameAuthor }} </span>
+        <div id="postText">
+            <p id="postTextBlock">
+                {{ Posted.Gpost_text }}
             </p>
         </div>
-        <p id="postDate">Enregistré le: 
-            <span id="postInfosDate"> {{ Posted.Gpost_date.toLocaleString().slice(0, -14) }} </span>
-        </p>
-    </div>
 
-    <div id="chooseAct">
-        <div id="backForum">
-            <router-link :to="{ name: 'Published' }">Je retourne sur le forum !</router-link>
-        </div>    
-        <input type="submit" value="Supprimer" class="submit" @click="supressPost">
-    </div>
-
-    <div id="postComment">
-        <input type="text" placeholder="Entrer votre commentaire ici..." v-model="OneComment" id="postComment1" class="intro_input" autofocus><br />
-        <input type="submit" value="Valider mon commentaire" id="validateComment1" @click="postComment">
-    </div>
-
-    <div class="postedComment" v-if="Comments.length > 0" v-for="(Comment, key) in Comments" :key="key">
-
-        <div class="postedCommentX intro_input" autofocus>
-            <div class="postedCommentX_border">
-               <p> {{ Comment.comment_text }} </p> 
-            </div>            
-        </div>
-
-        <div class="postedCommentXdisplay">
-            <div class="postedCommentXAuthor">
-                <p class="postedCommentXInfosAuthor">Publié par:     
-                    <span class="postedCommentXInfosFirstname"> {{ Comment.comment_firstname }} </span>
-                    <span class="postedCommentXInfosLastname"> {{ Comment.comment_lastname }} </span>
+        <div id="postInfos">
+            <div id="postAuthor">
+                <p id="postInfosAuthor">Publié par:     
+                    <span id="postInfosFirstname"> {{ Posted.Gpost_firstNameAuthor }} </span>
+                    <span id="postInfosLastname"> {{ Posted.Gpost_lastNameAuthor }} </span>
                 </p>
             </div>
-            <p class="postedCommentXDate">Enregistré le: 
-                <span class="postedCommentXInfosDate"> {{ Comment.comment_date.toLocaleString().slice(0, -14) }} </span>
+            <p id="postDate">Enregistré le: 
+                <span id="postInfosDate"> {{ Posted.Gpost_date.toLocaleString().slice(0, -14) }} </span>
             </p>
         </div>
 
+        <div id="chooseAct">
+            <div id="backForum">
+                <router-link :to="{ name: 'Published' }">Je retourne sur le forum !</router-link>
+            </div>    
+            <input type="submit" value="Supprimer" class="submit" @click="supressPost">
+        </div>
 
+        <div id="postComment">
+            <input type="text" placeholder="Entrer votre commentaire ici..." v-model="OneComment" id="postComment1" class="intro_input" autofocus><br />
+            <input type="submit" value="Valider mon commentaire" id="validateComment1" @click="postComment">
+        </div>
+
+        <div class="postedComment" v-if="Comments.length > 0" v-for="(Comment, key) in Comments" :key="key">
+
+            <div class="postedCommentX intro_input" autofocus>
+                <div class="postedCommentX_border">
+                    <p> {{ Comment.comment_text }} </p> 
+                </div>            
+            </div>
+
+            <div class="postedCommentXdisplay">
+                <div class="postedCommentXAuthor">
+                    <p class="postedCommentXInfosAuthor">Publié par:     
+                        <span class="postedCommentXInfosFirstname"> {{ Comment.comment_firstname }} </span>
+                        <span class="postedCommentXInfosLastname"> {{ Comment.comment_lastname }} </span>
+                    </p>
+                </div>
+                <p class="postedCommentXDate">Enregistré le: 
+                    <span class="postedCommentXInfosDate"> {{ Comment.comment_date.toLocaleString().slice(0, -14) }} </span>
+                </p>
+            </div>
+
+        </div>
+
+        <div class="commentTrash">
+            <img src="../assets/Comment_trash.png" :title="warning_trash" v-if="Comments.length > 0" alt="modérer le commentaire" @click="deleteComments">
+        </div>
 
     </div>
-
-    <div class="commentTrash">
-        <img src="../assets/Comment_trash.png" :title="warning_trash" v-if="Comments.length > 0" alt="modérer le commentaire" @click="deleteComments">
-    </div>
-
-</div>
 
     <Footer />
 </div>
@@ -87,7 +85,7 @@ export default {
             Posted: [],
             Comments: [],
             OneComment: '',
-            warning_trash: "Vous pouvez choisir de supprimer les commentaires de ce post si vous disposez de privilèges adminsitrateurs. Vous pouvez prendre connaissance de vos privilèges en consultant votre page de profil !"   
+            warning_trash: "Vous pouvez choisir de supprimer les commentaires de ce post si vous disposez de privilèges administrateurs. Vous pouvez prendre connaissance de vos privilèges en consultant votre page de profil !"
         }
     },
     created() {

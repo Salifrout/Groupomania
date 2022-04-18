@@ -4,15 +4,6 @@ const cryptojs = require('crypto-js');
 const User = require ('../models/user');
 
 exports.getAllRelatedComments = async (req, res) => {
-    /*const MySQL_request = 'SELECT * FROM `comment` WHERE `related_postId` = ' + req.params.Gpost_id + 'ORDER BY `comment_date` DESC';
-    sequelize.query(MySQL_request, (err, result) => {
-
-        if (err) {
-            res.status(404).json({ err});
-            throw err;
-        }
-        res.status(200).json(result);
-    });*/
     try {
         const comments = await Comment.findAll({where: { related_postId: req.params.Gpost_id}, order: [['comment_date', 'ASC']], raw: true });
         return res.status(200).json(comments);
@@ -32,7 +23,7 @@ exports.createComment = (req, res) => {
                 comment_text: req.body.comment_text,
                 comment_firstname: firstname,
                 comment_lastname: lastname,
-                related_userEmail: req.params.user_email, //corriger par related_useremail là où models/comments/related_userId
+                related_userEmail: req.params.user_email,
                 related_postId: req.body.Gpost_id
             })
             comment.save()
@@ -42,27 +33,6 @@ exports.createComment = (req, res) => {
         .catch(error => res.status(500).json({ error }));
     }
 ;
-
-/*exports.deleteComment = (req, res) => {
-    try {
-        const emailCryptoJs = cryptojs.HmacSHA256(req.params.user_email, process.env.EMAIL_PROTECTED).toString();
-        User.findOne({ where: {user_email: emailCryptoJs}, raw: true })
-        .then((User) => {
-            if (User.user_admin === true || User.user_admin === 1) {
-                Comment.deleteOne({ where: {comment_id: req.params.comment_id}, raw: true })
-                .then(() => res.status(200).json({ message: 'Le commentaire a été supprimé !'}))
-                .catch(error => res.status(400).json({ error }));
-            } else if (User.user_admin === false || User.user_admin === 0) {
-                res.status(401).json ({ error: 'La requête n\'est pas authorisée aux utilisateurs ne disposant pas de privilèges administrateurs.'})
-            } else {
-                res.status(400).json({ error })
-            }
-        })
-        .catch(error => res.status(400).json({ error }));
-    } catch {
-        return res.status(500).json({ error })
-    }
-};*/
 
 exports.deleteComments = (req, res) => {
     try {

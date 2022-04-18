@@ -2,6 +2,7 @@
 <div>
     <Header />
 
+
     <div id="profilMine">
         <div id="profilBar">
             <div id="profilFirstname">
@@ -42,7 +43,7 @@ export default {
     },
     data() {
         return {
-            user : []
+            user: []
         }
     },
     created() {
