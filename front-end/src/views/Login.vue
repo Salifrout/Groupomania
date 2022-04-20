@@ -3,7 +3,7 @@
     <Header />
     <div id="login">
     <p class="intro">Vous avez déjà un compte Groupomania ? Veuillez entrer vos informations de connexion. Sinon, veuillez d'abord vous <router-link :to="{ name: 'Signup' }">créer un compte.</router-link></p>
-    <form action="javascript:void(0);" method="post">
+    <form method="post">
         <label for="e-mail" class="intro_label">Veuillez renseigner votre email:</label><br />
         <input type="email" id="e-mail" class="intro_input" v-model="email" autofocus required><br />
         <label for="pass-wword" class="intro_label">Veuillez renseigner votre mot de passe:</label><br />

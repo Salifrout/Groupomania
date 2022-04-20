@@ -7,7 +7,6 @@
 </template>
 
 <script>
-//surface duo, nexthub, pixel 5
 </script>
 
 <style lang="scss">

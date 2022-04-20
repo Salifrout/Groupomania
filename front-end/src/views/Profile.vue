@@ -79,6 +79,7 @@ export default {
             .catch(error => console.log('error', error));
         },
         toDelete() {
+            const auth = JSON.parse(sessionStorage.getItem('Authorization'));
             const myHeaders = new Headers();
             myHeaders.append('Authorization', auth.token);
             const requestOptions = { method: 'DELETE', headers: myHeaders, redirect: 'follow' };

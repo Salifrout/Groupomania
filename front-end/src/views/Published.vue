@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="parent">
         <Header />
 
         <p id="warning" v-if="Forum.length < 1"> Aucun poste n'a encore été partagé. Soyez le premier à publier sur Groupomania !</p>

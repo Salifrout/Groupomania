@@ -7,7 +7,7 @@ import Published from "@/views/Published.vue";
 import Posted from "@/views/Posted.vue";
 import NotFound from "@/views/NotFound.vue";
 import Rules from "@/views/Rules.vue";
-import { nextTick } from "vue";
+/*import { nextTick } from "vue";*/
 
 const routes = [
   {
@@ -40,9 +40,9 @@ const routes = [
     path: "/published",
     name: "Published",
     component: Published,
-    meta: {
+    /*meta: {
       requiresAuth: true
-    }
+    }*/
   },
   {
     path: "/posted",
@@ -74,11 +74,11 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeResolve((to, from, next) => {
   if (to.meta.requiresAuth && (!sessionStorage.getItem('Authorization') || sessionStorage.getItem('Authorization') == undefined)) {
     next({name: "Login"});
   } else {
-    next();
+    setTimeout(next(), 3000);
   }
 });
 

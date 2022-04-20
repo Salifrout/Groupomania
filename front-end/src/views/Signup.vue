@@ -5,7 +5,7 @@
     <div id="signup">
       <p class="intro">Vous désirez vous créer un compte afin de rejoindre le réseau social Groupomania ? Veuillez renseigner les informations suivantes.<br />
       Si vous vous êtes déjà créé un compte, vous pouvez <router-link :to="{ name: 'Login' }">vous connecter ici.</router-link></p>
-      <form action="javascript:void(0);" method="post">
+      <form method="post">
         <label for="firstname" class="intro_label" >Veuillez indiquer votre prénom:</label><br />
         <input type="text" id="firstname" class="intro_input" v-model="firstname" autofocus required><br />
         <label for="lastname" class="intro_label">Veuillez indiquer votre patronyme:</label><br />
